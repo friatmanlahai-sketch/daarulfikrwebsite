@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Santri Baru — Rumah Quran dan Literasi Daarul Fikr</title>
+<meta name="description" content="Daftar santri baru Rumah Quran dan Literasi Daarul Fikr secara online. Isi formulir dari HP, kapan saja.">
+<meta property="og:title" content="Daftar Santri Baru — Rumah Quran dan Literasi Daarul Fikr">
+<meta property="og:description" content="Daftar santri baru Rumah Quran dan Literasi Daarul Fikr secara online. Isi formulir dari HP, kapan saja.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#08402b">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"Rumah Quran dan Literasi Daarul Fikr","address":{"@type":"PostalAddress","addressLocality":"Bolaang Uki","addressRegion":"Sulawesi Utara","addressCountry":"ID","streetAddress":"Desa Tolondadu"}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="bg.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script src="logo64.js"></script>
+<script src="anim.js"></script>
+</head>
+<body>
+
+<div class="prog-bar" id="pbar"></div>
+<header>
+  <div class="tick" id="tick" role="marquee" aria-label="Selamat datang"><div class="tick-l"><span>Selamat Datang</span></div><div class="tick-m"><div class="tick-t" id="tickt"></div></div></div>
+  <div class="bnr" id="bnr" hidden><span></span></div>
+  <div class="w"><nav>
+    <a href="index.html" class="logo"><img src="logo.png" alt="Logo Daarul Fikr" data-logo onerror="this.style.display='none'"><span>Daarul Fikr<small>Rumah Quran &amp; Literasi</small></span></a>
+    <button class="burger" id="burger" aria-label="Buka menu">&#9776;</button>
+    <ul class="menu" id="menu">
+      <li><a href="tentang.html">Tentang</a></li><li><a href="struktur.html">Struktur</a></li><li><a href="program.html">Program</a></li><li><a href="pengajar.html">Pengajar</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="pengumuman.html">Pengumuman</a></li><li><a href="faq.html">FAQ</a></li><li><a href="kontak.html">Kontak</a></li><li><a href="ortu.html">Orang Tua</a></li><li><a href="admin.html" class="lgb" id="lgbtn">Login</a></li><li><a href="daftar.html" class="btn btn-e">Daftar Santri</a></li>
+    </ul>
+  </nav></div>
+</header>
+<section class="phead"><div class="w"><nav class="crumb" aria-label="Jejak halaman"><a href="index.html">Beranda</a><span>›</span>Daftar</nav><h1>Pendaftaran Santri Baru</h1><p>Ikuti langkah berikut, lalu isi formulir. Pengurus akan menghubungi Anda lewat WhatsApp.</p></div><svg class="gel" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0,44 C220,92 470,4 720,34 C970,64 1210,92 1440,38 L1440,80 L0,80Z" fill="#f6f7f2"/></svg></section>
+<section id="alur">
+  <div class="w">
+    <h2>Cara mendaftar</h2>
+    <p class="lead">Pendaftaran bisa dilakukan dari HP, tanpa perlu datang lebih dulu.</p>
+    <ol class="alur">
+      <li><h3>Isi formulir</h3><p>Lengkapi data santri dan orang tua di bagian Daftar.</p></li>
+      <li><h3>Simpan nomor</h3><p>Anda mendapat nomor pendaftaran. Catat atau cetak.</p></li>
+      <li><h3>Tunggu konfirmasi</h3><p>Pengurus menghubungi lewat WhatsApp untuk verifikasi.</p></li>
+      <li><h3>Mulai belajar</h3><p>Santri diterima dan mengikuti kelas sesuai jadwal.</p></li>
+    </ol>
+  </div>
+</section>
+<section id="daftar" class="putih">
+  <div class="w">
+    <h2>Daftar santri baru</h2>
+    <p class="lead">Isi data dengan benar. Kolom bertanda * wajib diisi.</p>
+    <div class="nocetak" style="background:#fff;border:1px solid var(--garis);border-left:4px solid var(--emas);border-radius:10px;padding:14px 18px;margin-bottom:18px;font-size:.95rem">Sudah punya akun orang tua? <a href="ortu.html" style="color:var(--hijau);font-weight:700">Masuk ke portal</a> untuk mendaftarkan anak dengan lebih cepat dan memantau perkembangannya.</div>
+    <div class="fprog nocetak" aria-hidden="true"><div><i id="fpb"></i></div><span id="fpt">0% terisi</span></div>
+    <form class="form" id="fd">
+      <label class="full">Nama lengkap santri *<input name="nama" required maxlength="80" autocomplete="off"></label>
+      <label>Tempat lahir *<input name="tempat" required></label>
+      <label>Tanggal lahir *<input type="date" name="lahir" required></label>
+      <label>Jenis kelamin *<select name="jk" required><option value="">Pilih</option><option>Laki-laki</option><option>Perempuan</option></select></label>
+      <label>Asal sekolah<input name="sekolah"></label>
+      <label>Nama orang tua / wali *<input name="ortu" required autocomplete="name"></label>
+      <label>No. WhatsApp orang tua *<input name="hp" type="tel" required pattern="[0-9+\- ]{9,16}" placeholder="08xxxxxxxxxx" autocomplete="tel"></label>
+      <label class="full">Alamat lengkap *<textarea name="alamat" rows="2" required></textarea></label>
+      <label class="full">Program yang diminati *<select name="program" id="pgsel" required><option value="">Pilih program</option><option>Belajar Membaca Al-Qur'an (Iqra' &amp; Tahsin)</option><option>Tahfidz Qur'an</option><option>Taman Baca &amp; Literasi</option><option>Pelatihan Menulis</option></select></label>
+      <label class="full">Kemampuan membaca Al-Qur'an saat ini<select name="level"><option>Belum bisa</option><option>Iqra'</option><option>Al-Qur'an terbata-bata</option><option>Lancar</option></select></label>
+      <label class="full">Catatan<textarea name="catatan" rows="2"></textarea></label>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="full" style="font-size:.85rem;color:#5d6b63">Data hanya dipakai untuk keperluan pendaftaran dan komunikasi dengan orang tua. Tidak dibagikan ke pihak lain.</p>
+      <div class="full"><button class="btn btn-h" type="submit">Kirim pendaftaran</button></div>
+    </form>
+    <div id="ok" role="status">
+      <p>Pendaftaran terkirim. Nomor pendaftaran:</p><b id="no"></b>
+      <p style="margin:8px 0 14px;font-size:.95rem">Simpan nomor ini. Pengurus akan menghubungi Anda lewat WhatsApp.</p>
+      <p class="nocetak" style="margin:0 0 14px;font-size:.95rem">Ingin memantau kehadiran dan hafalan anak? <a href="ortu.html#daftar" style="color:var(--hijau);font-weight:700">Buat akun orang tua</a>.</p>
+      <div class="aksi nocetak" style="justify-content:center"><a class="btn btn-e" id="wa2" target="_blank" rel="noopener">Konfirmasi lewat WhatsApp</a><button class="btn btn-o" type="button" onclick="print()">Cetak bukti</button></div>
+    </div>
+    <form class="cek" id="cs">
+      <label for="csno" style="font-weight:700;color:var(--tua);width:100%">Sudah mendaftar? Cek status</label>
+      <input id="csno" placeholder="Contoh: DF-26-ABC123" autocomplete="off">
+      <button class="btn btn-h" type="submit">Cek status</button>
+      <p id="csh" role="status"></p>
+    </form>
+  </div>
+</section>
+<footer>
+  <div class="w fg">
+    <div><img class="flogo" src="logo.png" alt="Logo" data-logo onerror="this.style.display='none'"><strong>Daarul Fikr</strong><p>Rumah Quran dan Literasi. Membangun generasi yang cinta Al-Qur'an, gemar membaca, dan berakhlak mulia.</p><p id="sos" style="margin-top:8px"></p></div>
+    <div><h4>Tautan</h4><a href="tentang.html">Tentang kami</a><a href="struktur.html">Struktur organisasi</a><a href="program.html">Program &amp; jadwal</a><a href="pengajar.html">Pengajar</a><a href="kegiatan.html">Kegiatan</a><a href="faq.html">Tanya jawab</a><a href="daftar.html">Daftar santri</a><a href="ortu.html">Portal orang tua</a><a href="pengumuman.html">Pengumuman</a><a href="galeri.html">Galeri</a><a href="infaq.html">Infaq &amp; donasi</a><a href="privasi.html">Kebijakan privasi</a></div>
+    <div><h4>Kontak</h4><p>Desa Tolondadu, Kec. Bolaang Uki, Kab. Bolaang Mongondow Selatan, Sulawesi Utara</p><a data-wa href="#" target="_blank" rel="noopener">WhatsApp</a><a data-email href="#"></a></div>
+  </div>
+  <div class="w cp">&copy; <span id="tahun"></span> Rumah Quran dan Literasi Daarul Fikr. <a href="admin.html" style="color:#8fb3a0">Admin</a></div>
+</footer>
+<button class="top nocetak" id="top" aria-label="Kembali ke atas">↑</button>
+<a class="wa nocetak" data-wa href="#" target="_blank" rel="noopener" aria-label="Chat WhatsApp">💬</a>
+<div id="lgm" role="dialog" aria-modal="true" aria-label="Login admin">
+  <form id="lgf"><img src="logo.png" alt="" data-logo onerror="this.style.display='none'"><h3>Masuk</h3><p style="text-align:center;font-size:.9rem;color:#5d6b63">Admin atau orang tua santri</p>
+    <label>Email / Username<input id="lgu" autocomplete="username" required></label>
+    <label>Password<input id="lgp" type="password" autocomplete="current-password" required></label>
+    <p id="lge" role="alert"></p>
+    <p style="font-size:.9rem;margin-bottom:10px">Orang tua santri belum punya akun? <a href="ortu.html#daftar" style="color:var(--hijau);font-weight:700">Buat akun</a></p>
+    <div style="display:flex;gap:10px"><button class="btn btn-h" style="flex:1" type="submit">Masuk</button><button class="btn btn-o" type="button" id="lgx">Batal</button></div>
+  </form>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="db.js"></script>
+<script src="site-config.js"></script>
+<script src="konten.js"></script>
+<script>window.PAGE={need:["pengaturan", "program", "alur"]};</script>
+<script src="site.js"></script>
+<script src="bg.js" defer></script>
+</body>
+</html>

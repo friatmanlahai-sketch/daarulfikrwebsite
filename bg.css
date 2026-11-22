@@ -1,0 +1,33 @@
+/* Daarul Fikr — latar animasi (bg.css). Dimuat setelah style.css */
+body::before{content:'';position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 15% 20%,rgba(46,158,104,.14),transparent 70%),radial-gradient(35% 30% at 85% 30%,rgba(201,162,74,.16),transparent 70%),radial-gradient(40% 40% at 50% 90%,rgba(58,167,192,.11),transparent 70%);animation:bgxDrift 28s ease-in-out infinite alternate}
+@keyframes bgxDrift{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-4%,3%,0) scale(1.08)}100%{transform:translate3d(3%,-4%,0) scale(1.03)}}
+.putih{background:rgba(255,255,255,.8);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+/* lapisan hias di bagian hijau gelap */
+.bgx-host{isolation:isolate}
+.bgx-l{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.bgx-l i{position:absolute;border-radius:50%;filter:blur(64px);opacity:.5;will-change:transform}
+.bgx-l i:nth-child(1){width:46vmax;height:46vmax;left:-14vmax;top:-18vmax;background:radial-gradient(circle,#2a9a6c,transparent 65%);animation:bgxA 22s ease-in-out infinite alternate}
+.bgx-l i:nth-child(2){width:36vmax;height:36vmax;right:-12vmax;top:-6vmax;background:radial-gradient(circle,#d8b45a,transparent 65%);opacity:.34;animation:bgxB 27s ease-in-out infinite alternate}
+.bgx-l i:nth-child(3){width:38vmax;height:38vmax;left:28vw;bottom:-22vmax;background:radial-gradient(circle,#3aa7c0,transparent 65%);opacity:.3;animation:bgxC 31s ease-in-out infinite alternate}
+@keyframes bgxA{to{transform:translate(16vw,10vh) scale(1.2)}}
+@keyframes bgxB{to{transform:translate(-16vw,8vh) scale(.9)}}
+@keyframes bgxC{to{transform:translate(-14vw,-10vh) scale(1.18)}}
+.bgx-orn{position:absolute;color:rgba(231,200,114,.17);width:min(72vw,640px);height:auto;margin-top:calc(var(--bgy,0)*-.03px)}
+.bgx-orn.a{right:-14%;top:-30%;animation:bgxSpin 110s linear infinite}
+.bgx-orn.b{left:-12%;bottom:-40%;width:min(56vw,480px);color:rgba(255,255,255,.1);animation:bgxSpin 140s linear infinite reverse}
+@keyframes bgxSpin{to{transform:rotate(360deg)}}
+/* ombak di tepi bagian */
+.gel path{transform-origin:50% 50%;animation:bgxWave 11s ease-in-out infinite alternate}
+@keyframes bgxWave{from{transform:scaleX(1.1) translateX(-3%)}to{transform:scaleX(1.1) translateX(3%)}}
+/* kartu terangkat saat disentuh */
+.jk,.kel>div,.prog li{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.jk:hover,.kel>div:hover,.prog li:hover{transform:translateY(-7px);box-shadow:0 18px 36px rgba(8,64,43,.16)}
+/* kanvas bintang & kunang-kunang */
+#bgx-cv{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
+/* ajakan pasang aplikasi */
+#bgx-pwa{position:fixed;left:50%;bottom:20px;transform:translate(-50%,140%);z-index:95;display:flex;gap:10px;align-items:center;padding:10px 12px 10px 16px;border-radius:40px;background:linear-gradient(135deg,#08402b,#0f5d3f);color:#fff;box-shadow:0 12px 32px rgba(0,0,0,.35);border:1px solid rgba(231,200,114,.5);font-size:.92rem;transition:transform .6s cubic-bezier(.2,.9,.3,1.2);max-width:92vw}
+#bgx-pwa.on{transform:translate(-50%,0)}
+#bgx-pwa b{background:linear-gradient(135deg,#e7c872,#c9a24a);color:#08402b;border:0;border-radius:30px;padding:8px 16px;font-weight:800;cursor:pointer;font:inherit;font-weight:800}
+#bgx-pwa button.x{background:none;border:0;color:#cfe2d7;font-size:1.1rem;cursor:pointer;padding:4px 8px}
+@media print{#bgx-cv,.bgx-l,#bgx-pwa,body::before{display:none!important}}
+@media(prefers-reduced-motion:reduce){#bgx-cv{display:none}}

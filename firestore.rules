@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signed() { return request.auth != null; }
+    // GANTI dengan email akun admin yang Anda buat di Firebase Authentication.
+    // Hanya email di daftar ini yang dianggap admin. Akun orang tua TIDAK bisa menjadi admin.
+    function admin() {
+      return signed() && request.auth.token.email in ['GANTI-DENGAN-EMAIL-ADMIN@gmail.com'];
+    }
+    // Orang tua hanya boleh mengakses data anak yang sudah ditautkan ke akunnya.
+    function ownerOf(sid) {
+      return signed()
+        && exists(/databases/$(database)/documents/santri/$(sid))
+        && get(/databases/$(database)/documents/santri/$(sid)).data.get('ortuUid', '') == request.auth.uid;
+    }
+
+    // ---- Santri ----
+    match /santri/{id} {
+      // Publik boleh mendaftar. Jika menyertakan ortuUid, harus uid akun yang sedang login.
+      allow create: if request.resource.data.status == 'Menunggu'
+        && request.resource.data.nama is string && request.resource.data.nama.size() < 100
+        && request.resource.data.keys().hasAll(['nama', 'no', 'hp', 'ortu'])
+        && (!('ortuUid' in request.resource.data) || (signed() && request.resource.data.ortuUid == request.auth.uid));
+      allow read: if signed() && resource.data.get('ortuUid', '') == request.auth.uid;
+      // Orang tua hanya boleh mengubah kontak anaknya.
+      allow update: if signed() && resource.data.get('ortuUid', '') == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['hp', 'alamat']);
+    }
+
+    // ---- Data anak: orang tua hanya membaca; boleh mengajukan izin/sakit ----
+    match /absensi/{id} {
+      allow read: if ownerOf(resource.data.sid);
+      allow create: if ownerOf(request.resource.data.sid)
+        && request.resource.data.ket in ['Izin', 'Sakit']
+        && request.resource.data.keys().hasOnly(['tanggal', 'sid', 'snama', 'ket', 'catatan', 'oleh', 'tgl']);
+    }
+    match /hafalan/{id} { allow read: if ownerOf(resource.data.sid); }
+    match /bayar/{id} { allow read: if ownerOf(resource.data.sid); }
+
+    // ---- Akun orang tua ----
+    match /ortu/{uid} {
+      allow read, create, update: if signed() && request.auth.uid == uid;
+    }
+    match /tautan/{id} {
+      allow create: if signed() && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'Menunggu'
+        && request.resource.data.keys().hasOnly(['uid', 'nama', 'hp', 'no', 'lahir', 'status', 'tgl']);
+      allow read: if signed() && resource.data.uid == request.auth.uid;
+    }
+
+    // ---- Publik ----
+    match /status/{no} {
+      allow get: if true;
+      allow create: if request.resource.data.status == 'Menunggu';
+    }
+    match /pengumuman/{id} { allow read: if true; }
+    match /program/{id} { allow read: if true; }
+    match /jadwal/{id} { allow read: if true; }
+    match /pengajar/{id} { allow read: if true; }
+    match /galeri/{id} { allow read: if true; }
+    match /pengaturan/{id} { allow read: if true; }
+    match /sorotan/{id} { allow read: if true; }
+    match /keunggulan/{id} { allow read: if true; }
+    match /alur/{id} { allow read: if true; }
+    match /faq/{id} { allow read: if true; }
+    match /statistik/{id} { allow read: if true; }
+    match /agenda/{id} { allow read: if true; }
+    match /testimoni/{id} { allow read: if true; }
+
+    // ---- Admin: semuanya ----
+    match /{col}/{id} { allow read, write: if admin(); }
+  }
+}

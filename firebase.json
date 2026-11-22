@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "_setup/**", "*.md", "admin_1.html"],
+    "cleanUrls": false,
+    "headers": [
+      {"source": "**/*.html", "headers": [{"key": "Cache-Control", "value": "no-cache"}]},
+      {"source": "/sw.js", "headers": [{"key": "Cache-Control", "value": "no-cache"}]},
+      {"source": "**/*.@(css|js|png|webmanifest)", "headers": [{"key": "Cache-Control", "value": "public, max-age=86400"}]},
+      {"source": "/admin.html", "headers": [{"key": "X-Robots-Tag", "value": "noindex"}, {"key": "X-Frame-Options", "value": "DENY"}]},
+      {"source": "**", "headers": [{"key": "X-Content-Type-Options", "value": "nosniff"}, {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"}]}
+    ]
+  }
+}
