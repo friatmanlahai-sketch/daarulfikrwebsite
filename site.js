@@ -7,6 +7,20 @@ var NIL = (function () {
   return p;
 })();
 /* hanya muat data yang dipakai halaman ini (hemat pembacaan database) */
+/* Foto orang (pengajar/struktur): terima data URI, https, path relatif, link Google Drive; bila gagal dimuat tampil huruf awal. */
+function fotoUrl(x) {
+  var f = String(typeof x === 'string' ? x : (x && (x.foto || x.gambar || x.photo || x.img)) || '').trim(); if (!f) return '';
+  var m = f.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]+)/); if (m) return 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w600';
+  if (/^(data:image\/|https?:\/\/|blob:)/i.test(f)) return f; if (/^\/\//.test(f)) return 'https:' + f;
+  if (/^(javascript|vbscript|data):/i.test(f)) return ''; return f;
+}
+function fotoEl(x, cls, fbCls) {
+  var s = fotoUrl(x), ini = String((x && x.nama) || '?').trim().charAt(0).toUpperCase() || '?';
+  function huruf() { var e = document.createElement('span'); e.className = fbCls; e.textContent = ini; return e; }
+  if (!s) return huruf();
+  var im = document.createElement('img'); im.className = cls; im.alt = 'Foto ' + ((x && x.nama) || ''); im.loading = 'lazy'; im.referrerPolicy = 'no-referrer';
+  im.onerror = function () { if (im.parentNode) im.parentNode.replaceChild(huruf(), im); }; im.src = s; return im;
+}
 function DBL(c) { return ((window.PAGE && PAGE.need) || []).indexOf(c) > -1 ? DB.list(c) : Promise.resolve([]); }
 /* KONTEN.apply tanpa error bila elemen target ada di halaman lain */
 function konten(st) {
@@ -42,21 +56,28 @@ $('top').onclick = function () { scrollTo({ top: 0, behavior: 'smooth' }); };
 onscroll = function () { $('top').style.display = scrollY > 600 ? 'block' : 'none'; };
 $('tahun').textContent = new Date().getFullYear();
 var masuk = false;
+/* Satu portal masuk untuk semua peran: tombol Login membuka masuk.html; setelah login tombol menuju portal sesuai peran. */
 $('lgbtn').onclick = function (e) { if (masuk) return; e.preventDefault(); $('menu').classList.remove('buka'); $('lgm').classList.add('on'); $('lgu').focus(); };
 $('lgx').onclick = function () { $('lgm').classList.remove('on'); };
 $('lgm').onclick = function (e) { if (e.target === this) this.classList.remove('on'); };
 document.addEventListener('keydown', function (e) { if (e.key === 'Escape') $('lgm').classList.remove('on'); });
+/* Satu menu login untuk semua peran: admin, kepala, pengajar, dan orang tua diarahkan otomatis ke portalnya. */
 $('lgf').onsubmit = async function (e) {
   e.preventDefault(); $('lge').textContent = ''; var b = e.target.querySelector('button[type=submit]'); b.disabled = true;
-  try { var rl = await DB.masuk($('lgu').value.trim(), $('lgp').value); location.href = rl === 'admin' ? 'admin.html' : 'ortu.html'; }
-  catch (er) { $('lge').textContent = DB.err ? DB.err(er) : er.message; b.disabled = false; }
+  try {
+    await DB.masuk($('lgu').value.trim(), $('lgp').value);
+    var t = await DB.tujuan();
+    if (!t || !t.href) { try { await DB.logout(); } catch (x) {} throw new Error(t && t.role === 'nonaktif' ? 'Akun ini dinonaktifkan. Hubungi pengurus.' : 'Akun tidak dikenali.'); }
+    location.href = t.href;
+  } catch (er) { $('lge').textContent = DB.err ? DB.err(er) : er.message; b.disabled = false; }
 };
 DB.onUser(async function (u) {
   if (!u) { masuk = false; return; }
   try {
-    var rr = await DB.role(), b = $('lgbtn'); masuk = true; b.textContent = rr === 'admin' ? 'Dashboard Admin' : 'Portal Saya'; b.href = rr === 'admin' ? 'admin.html' : 'ortu.html';
-    var pf = rr === 'ortu' ? await DB.profil() : null, nm = rr === 'admin' ? 'Admin' : (pf && pf.nama ? String(pf.nama).split(' ')[0] : '');
-    if (nm) $('salam').textContent = "Assalamu'alaikum, " + nm + ' · Selamat ' + waktuSalam();
+    var t = await DB.tujuan(), b = $('lgbtn'); if (!t || !t.href) return; masuk = true;
+    b.textContent = { admin: 'Dashboard Admin', kepala: 'Panel Kepala', pengajar: 'Portal Pengajar', ortu: 'Portal Saya' }[t.role] || 'Portal Saya'; b.href = t.href;
+    var pf = t.role === 'ortu' ? await DB.profil() : null, nm = t.role === 'admin' ? 'Admin' : t.role === 'ortu' ? (pf && pf.nama ? String(pf.nama).split(' ')[0] : '') : String(t.nama || '').split(' ')[0];
+    if (nm && $('salam')) $('salam').textContent = "Assalamu'alaikum, " + nm + ' · Selamat ' + waktuSalam();
   } catch (e) {}
 });
 $('burger').onclick = function () { $('menu').classList.toggle('buka'); };
@@ -148,14 +169,14 @@ $('cs').addEventListener('submit', async function (e) {
   var GAL = [], gi = 0;
   try {
     var G = (await DBL('pengajar')).filter(function (x) { return x.aktif !== 'Tidak'; }).sort(by);
-    if (G.length) { G.forEach(function (x) { var d = el('div'), av; d.dataset.peran = x.peran || 'Pengajar'; if (/^data:image\//.test(x.foto || '') || /^https?:/.test(x.foto || '')) { av = document.createElement('img'); av.className = 'pfoto'; av.src = x.foto; av.alt = 'Foto ' + (x.nama || ''); av.loading = 'lazy'; } else av = el('span', 'pav', String(x.nama || '?').trim().charAt(0).toUpperCase()); d.append(av, el('h3', '', x.nama), el('b', '', x.jabatan)); if (x.ket) d.appendChild(el('p', '', x.ket)); $('pgjl').appendChild(d); }); $('pengajar').style.display = 'block'; }
+    if (G.length) { G.forEach(function (x) { var d = el('div'), av; d.dataset.peran = x.peran || 'Pengajar'; av = fotoEl(x, 'pfoto', 'pav'); d.append(av, el('h3', '', x.nama), el('b', '', x.jabatan)); if (x.ket) d.appendChild(el('p', '', x.ket)); $('pgjl').appendChild(d); }); $('pengajar').style.display = 'block'; }
   } catch (e) {}
   try {
     var F = (await DBL('galeri')).sort(by);
     if (F.length) {
       F.forEach(function (x) {
-        if (!/^data:image\//.test(x.foto || '') && !/^https?:/.test(x.foto || '')) return;
-        var f = el('figure'), i = document.createElement('img'); i.src = x.foto; i.alt = x.ket || 'Kegiatan Daarul Fikr'; i.loading = 'lazy';
+        if (!fotoUrl(x)) return;
+        var f = el('figure'), i = document.createElement('img'); i.src = fotoUrl(x); i.alt = x.ket || 'Kegiatan Daarul Fikr'; i.loading = 'lazy';
         var gx = GAL.push(x) - 1; i.onclick = function () { openLb(gx); };
         f.appendChild(i); if (x.ket) f.appendChild(el('figcaption', '', x.ket)); $('gall').appendChild(f);
       });
@@ -426,9 +447,7 @@ function orgBuild(list, box) {
   L.forEach(function (x) { var p = x.induk ? map[String(x.induk).trim().toLowerCase()] : null; if (p && p !== x) p._k.push(x); else roots.push(x); });
   var seen = new Set();
   function kartu(x) {
-    var c = el('div', 'ocard' + (x._root ? ' oroot' : '')), f = x.foto || '', av;
-    if (/^data:image\//.test(f) || /^https?:/.test(f)) { av = document.createElement('img'); av.className = 'ofoto'; av.src = f; av.alt = 'Foto ' + x.nama; av.loading = 'lazy'; }
-    else av = el('span', 'ofoto oav', String(x.nama).trim().charAt(0).toUpperCase());
+    var c = el('div', 'ocard' + (x._root ? ' oroot' : '')), av = fotoEl(x, 'ofoto', 'ofoto oav');
     var t = el('div', 'ot'); t.append(el('b', '', x.nama)); if (x.jabatan) t.append(el('small', '', x.jabatan));
     c.append(av, t); return c;
   }
