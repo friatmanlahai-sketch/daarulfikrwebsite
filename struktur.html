@@ -91,11 +91,16 @@ html{scroll-behavior:smooth}
 .png li .pm{display:block;color:#6b776f;font-size:.8rem;margin:2px 0 4px}
 @media(prefers-reduced-motion:reduce){.strk *,.strk::before{animation:none!important}.org li{opacity:1;transform:none}}
 @media print{.strk{background:#fff;color:#000}.strk .aur,#strkc,.sw{display:none}.org li{opacity:1;transform:none}}
+.ocard .oket{margin:7px 0 0;color:#d6e8de;font-size:.78rem;line-height:1.45;font-weight:400;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ocard .odet{margin-top:9px;padding:4px 14px;border-radius:20px;border:1px solid rgba(231,200,114,.7);background:rgba(231,200,114,.14);color:#f3dc93;font:700 .74rem 'Nunito Sans',sans-serif;cursor:pointer;transition:background .25s,color .25s}
+.ocard .odet:hover,.ocard .odet:focus-visible{background:#e7c872;color:#04271a;outline:0}
+.ocard .ofoto{background-color:#0f5d3f}
 .strk-p{padding:70px 0 120px}.strk-p h1{color:#fff;font-size:clamp(2rem,5vw,3rem);margin:0}.strk-p h1 em{font-style:normal;background:linear-gradient(90deg,#e7c872,#fff,#e7c872);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 4s linear infinite}.orgh{color:#9fc0ae;font-size:.85rem;margin-top:6px}
 </style>
 
 <script src="logo64.js"></script>
 <script src="anim.js"></script>
+<script src="orang.js"></script>
 </head>
 <body>
 
@@ -107,7 +112,7 @@ html{scroll-behavior:smooth}
     <a href="index.html" class="logo"><img src="logo.png" alt="Logo Daarul Fikr" data-logo onerror="this.style.display='none'"><span>Daarul Fikr<small>Rumah Quran &amp; Literasi</small></span></a>
     <button class="burger" id="burger" aria-label="Buka menu">&#9776;</button>
     <ul class="menu" id="menu">
-      <li><a href="tentang.html">Tentang</a></li><li><a href="struktur.html" aria-current="page" style="color:#e7c872">Struktur</a></li><li><a href="program.html">Program</a></li><li><a href="pengajar.html">Pengajar</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="pengumuman.html">Pengumuman</a></li><li><a href="faq.html">FAQ</a></li><li><a href="kontak.html">Kontak</a></li><li><a href="ortu.html">Orang Tua</a></li><li><a href="admin.html" class="lgb" id="lgbtn">Login</a></li><li><a href="daftar.html" class="btn btn-e">Daftar Santri</a></li>
+      <li><a href="tentang.html">Tentang</a></li><li><a href="struktur.html" aria-current="page" style="color:#e7c872">Struktur</a></li><li><a href="program.html">Program</a></li><li><a href="pengajar.html">Pengajar</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="pengumuman.html">Pengumuman</a></li><li><a href="faq.html">FAQ</a></li><li><a href="kontak.html">Kontak</a></li><li><a href="masuk.html" class="lgb" id="lgbtn">Login</a></li><li><a href="daftar.html" class="btn btn-e">Daftar Santri</a></li>
     </ul>
   </nav></div>
 </header>
@@ -133,20 +138,20 @@ html{scroll-behavior:smooth}
 <footer>
   <div class="w fg">
     <div><img class="flogo" src="logo.png" alt="Logo" data-logo onerror="this.style.display='none'"><strong>Daarul Fikr</strong><p>Rumah Quran dan Literasi. Membangun generasi yang cinta Al-Qur'an, gemar membaca, dan berakhlak mulia.</p><p id="sos" style="margin-top:8px"></p></div>
-    <div><h4>Tautan</h4><a href="tentang.html">Tentang kami</a><a href="struktur.html">Struktur organisasi</a><a href="program.html">Program &amp; jadwal</a><a href="pengajar.html">Pengajar</a><a href="kegiatan.html">Kegiatan</a><a href="faq.html">Tanya jawab</a><a href="daftar.html">Daftar santri</a><a href="ortu.html">Portal orang tua</a><a href="pengumuman.html">Pengumuman</a><a href="galeri.html">Galeri</a><a href="infaq.html">Infaq &amp; donasi</a><a href="privasi.html">Kebijakan privasi</a></div>
+    <div><h4>Tautan</h4><a href="tentang.html">Tentang kami</a><a href="struktur.html">Struktur organisasi</a><a href="program.html">Program &amp; jadwal</a><a href="pengajar.html">Pengajar</a><a href="kegiatan.html">Kegiatan</a><a href="faq.html">Tanya jawab</a><a href="daftar.html">Daftar santri</a><a href="masuk.html">Portal masuk (pengajar &amp; orang tua)</a><a href="pengumuman.html">Pengumuman</a><a href="galeri.html">Galeri</a><a href="infaq.html">Infaq &amp; donasi</a><a href="privasi.html">Kebijakan privasi</a></div>
     <div><h4>Kontak</h4><p>Desa Tolondadu, Kec. Bolaang Uki, Kab. Bolaang Mongondow Selatan, Sulawesi Utara</p><a data-wa href="#" target="_blank" rel="noopener">WhatsApp</a><a data-email href="#"></a></div>
   </div>
-  <div class="w cp">&copy; <span id="tahun"></span> Rumah Quran dan Literasi Daarul Fikr. <a href="admin.html" style="color:#8fb3a0">Admin</a></div>
+  <div class="w cp">&copy; <span id="tahun"></span> Rumah Quran dan Literasi Daarul Fikr. <a href="masuk.html" style="color:#8fb3a0">Admin</a></div>
 </footer>
 <a href="daftar.html" class="mcta nocetak" id="mcta">Daftar santri baru →</a>
 <button class="top nocetak" id="top" aria-label="Kembali ke atas">↑</button>
 <a class="wa nocetak" data-wa href="#" target="_blank" rel="noopener" aria-label="Chat WhatsApp">💬</a>
-<div id="lgm" role="dialog" aria-modal="true" aria-label="Login admin">
-  <form id="lgf"><img src="logo.png" alt="" data-logo onerror="this.style.display='none'"><h3>Masuk</h3><p style="text-align:center;font-size:.9rem;color:#5d6b63">Admin atau orang tua santri</p>
+<div id="lgm" role="dialog" aria-modal="true" aria-label="Masuk">
+  <form id="lgf"><img src="logo.png" alt="" data-logo onerror="this.style.display='none'"><h3>Masuk</h3><p style="text-align:center;font-size:.9rem;color:#5d6b63">Admin, pengajar, atau orang tua santri &mdash; otomatis diarahkan sesuai peran</p>
     <label>Email / Username<input id="lgu" autocomplete="username" required></label>
     <label>Password<input id="lgp" type="password" autocomplete="current-password" required></label>
     <p id="lge" role="alert"></p>
-    <p style="font-size:.9rem;margin-bottom:10px">Orang tua santri belum punya akun? <a href="ortu.html#daftar" style="color:var(--hijau);font-weight:700">Buat akun</a></p>
+    <p style="font-size:.9rem;margin-bottom:10px">Orang tua belum punya akun? <a href="ortu.html#daftar" style="color:var(--hijau);font-weight:700">Buat akun</a></p>
     <div style="display:flex;gap:10px"><button class="btn btn-h" style="flex:1" type="submit">Masuk</button><button class="btn btn-o" type="button" id="lgx">Batal</button></div>
   </form>
 </div>
@@ -173,10 +178,13 @@ html{scroll-behavior:smooth}
     var roots=[];L.forEach(function(x){var p=x.induk?map[String(x.induk).trim().toLowerCase()]:null;if(p&&p!==x)p._k.push(x);else roots.push(x)});
     var seen=new Set(),n=0;
     function kartu(x){
-      var c=el('div','ocard'+(KEP.test(x.jabatan||'')||(x._root&&!roots.some(function(r){return KEP.test(r.jabatan||'')&&r!==x}))?' okep':'')),f=x.foto||'',av;
-      if(/^data:image\//.test(f)||/^https?:/.test(f)){av=document.createElement('img');av.className='ofoto';av.src=f;av.alt='Foto '+x.nama;av.loading='lazy'}
-      else av=el('span','ofoto oav',String(x.nama).trim().charAt(0).toUpperCase());
+      var c=el('div','ocard'+(KEP.test(x.jabatan||'')||(x._root&&!roots.some(function(r){return KEP.test(r.jabatan||'')&&r!==x}))?' okep':'')),av=DF.avatar(x,'ofoto'),ket=DF.ket(x);
       var t=el('div','ot');t.appendChild(el('b','',x.nama));if(x.jabatan)t.appendChild(el('small','',x.jabatan));
+      if(ket)t.appendChild(el('p','oket',ket));
+      var d=el('button','odet','Detail');d.type='button';d.setAttribute('aria-label','Lihat detail '+x.nama);
+      d.addEventListener('click',function(e){e.stopPropagation();DF.detail(x)});
+      d.addEventListener('keydown',function(e){e.stopPropagation()});
+      t.appendChild(d);
       c.appendChild(av);c.appendChild(t);return c;
     }
     function node(x){
