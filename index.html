@@ -85,6 +85,24 @@ html{scroll-behavior:smooth}
  .ocard.punya::after{bottom:auto;top:50%;left:auto;right:12px;transform:translateY(-50%)}
  .ocard.okep::before{top:-16px;left:30px;font-size:20px}
 }
+/* keterangan + detail pada kartu struktur */
+.ocard .oket{margin:7px 0 0;color:#d6e8de;font-size:.78rem;line-height:1.45;font-weight:400;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ocard .odet{margin-top:9px;padding:4px 14px;border-radius:20px;border:1px solid rgba(231,200,114,.7);background:rgba(231,200,114,.14);color:#f3dc93;font:700 .74rem 'Nunito Sans',sans-serif;cursor:pointer;transition:background .25s,color .25s}
+.ocard .odet:hover,.ocard .odet:focus-visible{background:#e7c872;color:#04271a;outline:0}
+.ocard .ofoto{background-color:#0f5d3f}
+/* bagian pengajar */
+.pgjs{padding:84px 0}
+.pgj-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px;margin-top:30px}
+.pgj-k{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 20px 20px;background:#fff;border:1px solid #e3e8e1;border-radius:22px;box-shadow:0 8px 24px rgba(8,64,43,.08);transition:transform .3s,box-shadow .3s;overflow:hidden}
+.pgj-k::before{content:'';position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,#0f5d3f,#e7c872,#2a8a62)}
+.pgj-k:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(8,64,43,.18)}
+.pgj-k .pf{width:104px;height:104px;border-radius:50%;object-fit:cover;font-size:2.4rem;box-shadow:0 0 0 3px #fff,0 0 0 5px #c9a24a;margin-bottom:14px}
+.pgj-k b{font-family:Amiri,serif;font-size:1.2rem;color:#08402b;line-height:1.25}
+.pgj-k small{color:#8a6d00;font-weight:700;margin-top:3px;font-size:.82rem}
+.pgj-k p{margin:10px 0 0;color:#4d5c53;font-size:.88rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.pgj-k button{margin-top:14px;padding:6px 18px;border-radius:20px;border:1px solid #0f5d3f;background:transparent;color:#0f5d3f;font:700 .8rem 'Nunito Sans',sans-serif;cursor:pointer;transition:.25s}
+.pgj-k button:hover,.pgj-k button:focus-visible{background:#0f5d3f;color:#fff;outline:0}
+.pgj-a{text-align:center;margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 /* pengumuman */
 .kt{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.72rem;font-weight:700;margin-right:6px}
 .kt.Umum{background:#e3f1ea;color:#1e6b34}.kt.Penting{background:#f8d7da;color:#842029}.kt.Kegiatan{background:#dbeafe;color:#1d4f91}.kt.Libur{background:#fff3cd;color:#8a6d00}
@@ -125,6 +143,7 @@ header #tick:hover #tickx,header #tick:focus-within #tickx{animation-play-state:
 
 <script src="logo64.js"></script>
 <script src="anim.js"></script>
+<script src="orang.js"></script>
 </head>
 <body class="home">
 
@@ -136,7 +155,7 @@ header #tick:hover #tickx,header #tick:focus-within #tickx{animation-play-state:
     <a href="index.html" class="logo"><img src="logo.png" alt="Logo Daarul Fikr" data-logo onerror="this.style.display='none'"><span>Daarul Fikr<small>Rumah Quran &amp; Literasi</small></span></a>
     <button class="burger" id="burger" aria-label="Buka menu">&#9776;</button>
     <ul class="menu" id="menu">
-      <li><a href="tentang.html">Tentang</a></li><li><a href="struktur.html">Struktur</a></li><li><a href="program.html">Program</a></li><li><a href="pengajar.html">Pengajar</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="pengumuman.html">Pengumuman</a></li><li><a href="faq.html">FAQ</a></li><li><a href="kontak.html">Kontak</a></li><li><a href="ortu.html">Orang Tua</a></li><li><a href="admin.html" class="lgb" id="lgbtn">Login</a></li><li><a href="daftar.html" class="btn btn-e">Daftar Santri</a></li>
+      <li><a href="tentang.html">Tentang</a></li><li><a href="struktur.html">Struktur</a></li><li><a href="program.html">Program</a></li><li><a href="pengajar.html">Pengajar</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="pengumuman.html">Pengumuman</a></li><li><a href="faq.html">FAQ</a></li><li><a href="kontak.html">Kontak</a></li><li><a href="masuk.html" class="lgb" id="lgbtn">Login</a></li><li><a href="daftar.html" class="btn btn-e">Daftar Santri</a></li>
     </ul>
   </nav></div>
 </header>
@@ -185,6 +204,14 @@ header #tick:hover #tickx,header #tick:focus-within #tickx{animation-play-state:
     <a href="struktur.html" class="btn btn-e" style="margin-top:8px">Lihat halaman struktur lengkap →</a>
   </div>
   <svg class="sw b" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 L1440,0 L1440,20 C1100,70 760,0 420,34 C250,52 110,40 0,18Z" fill="#f6f7f2"/></svg>
+</section>
+<section class="pgjs" id="pengajar" style="display:none">
+  <div class="w" style="text-align:center">
+    <h2>Pengajar Kami</h2>
+    <p class="lead">Kenali para pengajar yang membimbing santri dengan sabar dan penuh perhatian.</p>
+    <div class="pgj-g" id="pgjg"></div>
+    <div class="pgj-a"><a href="pengajar.html" class="btn btn-o">Semua pengajar →</a><a href="masuk.html" class="btn btn-e">Masuk Portal Pengajar</a></div>
+  </div>
 </section>
 <section class="stat" id="statistik" style="display:none"><div class="w"><div class="stl" id="stl"></div></div></section>
 <section id="jelajah">
@@ -246,20 +273,20 @@ header #tick:hover #tickx,header #tick:focus-within #tickx{animation-play-state:
 <footer>
   <div class="w fg">
     <div><img class="flogo" src="logo.png" alt="Logo" data-logo onerror="this.style.display='none'"><strong>Daarul Fikr</strong><p>Rumah Quran dan Literasi. Membangun generasi yang cinta Al-Qur'an, gemar membaca, dan berakhlak mulia.</p><p id="sos" style="margin-top:8px"></p></div>
-    <div><h4>Tautan</h4><a href="tentang.html">Tentang kami</a><a href="struktur.html">Struktur organisasi</a><a href="program.html">Program &amp; jadwal</a><a href="pengajar.html">Pengajar</a><a href="kegiatan.html">Kegiatan</a><a href="faq.html">Tanya jawab</a><a href="daftar.html">Daftar santri</a><a href="ortu.html">Portal orang tua</a><a href="pengumuman.html">Pengumuman</a><a href="galeri.html">Galeri</a><a href="infaq.html">Infaq &amp; donasi</a><a href="privasi.html">Kebijakan privasi</a></div>
+    <div><h4>Tautan</h4><a href="tentang.html">Tentang kami</a><a href="struktur.html">Struktur organisasi</a><a href="program.html">Program &amp; jadwal</a><a href="pengajar.html">Pengajar</a><a href="kegiatan.html">Kegiatan</a><a href="faq.html">Tanya jawab</a><a href="daftar.html">Daftar santri</a><a href="masuk.html">Portal masuk (pengajar &amp; orang tua)</a><a href="pengumuman.html">Pengumuman</a><a href="galeri.html">Galeri</a><a href="infaq.html">Infaq &amp; donasi</a><a href="privasi.html">Kebijakan privasi</a></div>
     <div><h4>Kontak</h4><p>Desa Tolondadu, Kec. Bolaang Uki, Kab. Bolaang Mongondow Selatan, Sulawesi Utara</p><a data-wa href="#" target="_blank" rel="noopener">WhatsApp</a><a data-email href="#"></a></div>
   </div>
-  <div class="w cp">&copy; <span id="tahun"></span> Rumah Quran dan Literasi Daarul Fikr. <a href="admin.html" style="color:#8fb3a0">Admin</a></div>
+  <div class="w cp">&copy; <span id="tahun"></span> Rumah Quran dan Literasi Daarul Fikr. <a href="masuk.html" style="color:#8fb3a0">Admin</a></div>
 </footer>
 <a href="daftar.html" class="mcta nocetak" id="mcta">Daftar santri baru →</a>
 <button class="top nocetak" id="top" aria-label="Kembali ke atas">↑</button>
 <a class="wa nocetak" data-wa href="#" target="_blank" rel="noopener" aria-label="Chat WhatsApp">💬</a>
-<div id="lgm" role="dialog" aria-modal="true" aria-label="Login admin">
-  <form id="lgf"><img src="logo.png" alt="" data-logo onerror="this.style.display='none'"><h3>Masuk</h3><p style="text-align:center;font-size:.9rem;color:#5d6b63">Admin atau orang tua santri</p>
+<div id="lgm" role="dialog" aria-modal="true" aria-label="Masuk">
+  <form id="lgf"><img src="logo.png" alt="" data-logo onerror="this.style.display='none'"><h3>Masuk</h3><p style="text-align:center;font-size:.9rem;color:#5d6b63">Admin, pengajar, atau orang tua santri &mdash; otomatis diarahkan sesuai peran</p>
     <label>Email / Username<input id="lgu" autocomplete="username" required></label>
     <label>Password<input id="lgp" type="password" autocomplete="current-password" required></label>
     <p id="lge" role="alert"></p>
-    <p style="font-size:.9rem;margin-bottom:10px">Orang tua santri belum punya akun? <a href="ortu.html#daftar" style="color:var(--hijau);font-weight:700">Buat akun</a></p>
+    <p style="font-size:.9rem;margin-bottom:10px">Orang tua belum punya akun? <a href="ortu.html#daftar" style="color:var(--hijau);font-weight:700">Buat akun</a></p>
     <div style="display:flex;gap:10px"><button class="btn btn-h" style="flex:1" type="submit">Masuk</button><button class="btn btn-o" type="button" id="lgx">Batal</button></div>
   </form>
 </div>
@@ -286,10 +313,13 @@ header #tick:hover #tickx,header #tick:focus-within #tickx{animation-play-state:
     var roots=[];L.forEach(function(x){var p=x.induk?map[String(x.induk).trim().toLowerCase()]:null;if(p&&p!==x)p._k.push(x);else roots.push(x)});
     var seen=new Set(),n=0;
     function kartu(x){
-      var c=el('div','ocard'+(KEP.test(x.jabatan||'')||(x._root&&!roots.some(function(r){return KEP.test(r.jabatan||'')&&r!==x}))?' okep':'')),f=x.foto||'',av;
-      if(/^data:image\//.test(f)||/^https?:/.test(f)){av=document.createElement('img');av.className='ofoto';av.src=f;av.alt='Foto '+x.nama;av.loading='lazy'}
-      else av=el('span','ofoto oav',String(x.nama).trim().charAt(0).toUpperCase());
+      var c=el('div','ocard'+(KEP.test(x.jabatan||'')||(x._root&&!roots.some(function(r){return KEP.test(r.jabatan||'')&&r!==x}))?' okep':'')),av=DF.avatar(x,'ofoto'),ket=DF.ket(x);
       var t=el('div','ot');t.appendChild(el('b','',x.nama));if(x.jabatan)t.appendChild(el('small','',x.jabatan));
+      if(ket)t.appendChild(el('p','oket',ket));
+      var d=el('button','odet','Detail');d.type='button';d.setAttribute('aria-label','Lihat detail '+x.nama);
+      d.addEventListener('click',function(e){e.stopPropagation();DF.detail(x)});
+      d.addEventListener('keydown',function(e){e.stopPropagation()});
+      t.appendChild(d);
       c.appendChild(av);c.appendChild(t);return c;
     }
     function node(x){
@@ -346,9 +376,25 @@ header #tick:hover #tickx,header #tick:focus-within #tickx{animation-play-state:
     });
     sec.style.display='';
   }
+  function renderPengajar(list){
+    var g=document.getElementById('pgjg'),sec=document.getElementById('pengajar');if(!g||!sec)return;
+    var L=(list||[]).filter(function(x){return x&&x.aktif!=='Tidak'&&x.nama}).sort(function(a,b){return(+a.urut||999)-(+b.urut||999)}).slice(0,8);
+    g.textContent='';
+    if(!L.length){sec.style.display='none';return}
+    L.forEach(function(x){
+      var k=el('div','pgj-k'),ket=DF.ket(x),j=DF.jab(x);
+      k.appendChild(DF.avatar(x,'pf'));k.appendChild(el('b','',x.nama));
+      if(j)k.appendChild(el('small','',j));
+      if(ket)k.appendChild(el('p','',ket));
+      var b=el('button','','Detail');b.type='button';b.setAttribute('aria-label','Lihat detail '+x.nama);b.addEventListener('click',function(){DF.detail(x)});
+      k.appendChild(b);g.appendChild(k);
+    });
+    sec.style.display='';
+  }
   function muat(){
     if(!window.DB||!DB.list)return;
     DB.list('struktur').then(build).catch(function(){build([])});
+    DB.list('pengajar').then(renderPengajar).catch(function(){});
     DB.list('pengumuman').then(function(L){
       renderPgm(L);
       var ul=document.getElementById('pgm');
