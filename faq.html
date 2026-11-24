@@ -18,6 +18,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script src="logo64.js"></script>
 <script src="anim.js"></script>
+<script src="orang.js"></script>
 </head>
 <body>
 
@@ -29,7 +30,7 @@
     <a href="index.html" class="logo"><img src="logo.png" alt="Logo Daarul Fikr" data-logo onerror="this.style.display='none'"><span>Daarul Fikr<small>Rumah Quran &amp; Literasi</small></span></a>
     <button class="burger" id="burger" aria-label="Buka menu">&#9776;</button>
     <ul class="menu" id="menu">
-      <li><a href="tentang.html">Tentang</a></li><li><a href="struktur.html">Struktur</a></li><li><a href="program.html">Program</a></li><li><a href="pengajar.html">Pengajar</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="pengumuman.html">Pengumuman</a></li><li><a href="faq.html" class="on" aria-current="page">FAQ</a></li><li><a href="kontak.html">Kontak</a></li><li><a href="ortu.html">Orang Tua</a></li><li><a href="admin.html" class="lgb" id="lgbtn">Login</a></li><li><a href="daftar.html" class="btn btn-e">Daftar Santri</a></li>
+      <li><a href="tentang.html">Tentang</a></li><li><a href="struktur.html">Struktur</a></li><li><a href="program.html">Program</a></li><li><a href="pengajar.html">Pengajar</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="pengumuman.html">Pengumuman</a></li><li><a href="faq.html" class="on" aria-current="page">FAQ</a></li><li><a href="kontak.html">Kontak</a></li><li><a href="masuk.html" class="lgb" id="lgbtn">Login</a></li><li><a href="daftar.html" class="btn btn-e">Daftar Santri</a></li>
     </ul>
   </nav></div>
 </header>
@@ -54,20 +55,20 @@
 <footer>
   <div class="w fg">
     <div><img class="flogo" src="logo.png" alt="Logo" data-logo onerror="this.style.display='none'"><strong>Daarul Fikr</strong><p>Rumah Quran dan Literasi. Membangun generasi yang cinta Al-Qur'an, gemar membaca, dan berakhlak mulia.</p><p id="sos" style="margin-top:8px"></p></div>
-    <div><h4>Tautan</h4><a href="tentang.html">Tentang kami</a><a href="struktur.html">Struktur organisasi</a><a href="program.html">Program &amp; jadwal</a><a href="pengajar.html">Pengajar</a><a href="kegiatan.html">Kegiatan</a><a href="faq.html">Tanya jawab</a><a href="daftar.html">Daftar santri</a><a href="ortu.html">Portal orang tua</a><a href="pengumuman.html">Pengumuman</a><a href="galeri.html">Galeri</a><a href="infaq.html">Infaq &amp; donasi</a><a href="privasi.html">Kebijakan privasi</a></div>
+    <div><h4>Tautan</h4><a href="tentang.html">Tentang kami</a><a href="struktur.html">Struktur organisasi</a><a href="program.html">Program &amp; jadwal</a><a href="pengajar.html">Pengajar</a><a href="kegiatan.html">Kegiatan</a><a href="faq.html">Tanya jawab</a><a href="daftar.html">Daftar santri</a><a href="masuk.html">Portal masuk (pengajar &amp; orang tua)</a><a href="pengumuman.html">Pengumuman</a><a href="galeri.html">Galeri</a><a href="infaq.html">Infaq &amp; donasi</a><a href="privasi.html">Kebijakan privasi</a></div>
     <div><h4>Kontak</h4><p>Desa Tolondadu, Kec. Bolaang Uki, Kab. Bolaang Mongondow Selatan, Sulawesi Utara</p><a data-wa href="#" target="_blank" rel="noopener">WhatsApp</a><a data-email href="#"></a></div>
   </div>
-  <div class="w cp">&copy; <span id="tahun"></span> Rumah Quran dan Literasi Daarul Fikr. <a href="admin.html" style="color:#8fb3a0">Admin</a></div>
+  <div class="w cp">&copy; <span id="tahun"></span> Rumah Quran dan Literasi Daarul Fikr. <a href="masuk.html" style="color:#8fb3a0">Admin</a></div>
 </footer>
 <a href="daftar.html" class="mcta nocetak" id="mcta">Daftar santri baru →</a>
 <button class="top nocetak" id="top" aria-label="Kembali ke atas">↑</button>
 <a class="wa nocetak" data-wa href="#" target="_blank" rel="noopener" aria-label="Chat WhatsApp">💬</a>
-<div id="lgm" role="dialog" aria-modal="true" aria-label="Login admin">
-  <form id="lgf"><img src="logo.png" alt="" data-logo onerror="this.style.display='none'"><h3>Masuk</h3><p style="text-align:center;font-size:.9rem;color:#5d6b63">Admin atau orang tua santri</p>
+<div id="lgm" role="dialog" aria-modal="true" aria-label="Masuk">
+  <form id="lgf"><img src="logo.png" alt="" data-logo onerror="this.style.display='none'"><h3>Masuk</h3><p style="text-align:center;font-size:.9rem;color:#5d6b63">Admin, pengajar, atau orang tua santri &mdash; otomatis diarahkan sesuai peran</p>
     <label>Email / Username<input id="lgu" autocomplete="username" required></label>
     <label>Password<input id="lgp" type="password" autocomplete="current-password" required></label>
     <p id="lge" role="alert"></p>
-    <p style="font-size:.9rem;margin-bottom:10px">Orang tua santri belum punya akun? <a href="ortu.html#daftar" style="color:var(--hijau);font-weight:700">Buat akun</a></p>
+    <p style="font-size:.9rem;margin-bottom:10px">Orang tua belum punya akun? <a href="ortu.html#daftar" style="color:var(--hijau);font-weight:700">Buat akun</a></p>
     <div style="display:flex;gap:10px"><button class="btn btn-h" style="flex:1" type="submit">Masuk</button><button class="btn btn-o" type="button" id="lgx">Batal</button></div>
   </form>
 </div>
