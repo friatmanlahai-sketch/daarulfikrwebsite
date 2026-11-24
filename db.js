@@ -82,6 +82,23 @@
       try { await fs.collection('admin').doc('ping').get(); return 'admin'; }
       catch (e) { if (/permission-denied/.test(e.code || '')) return 'ortu'; throw e; }
     },
+    /* Tujuan portal setelah login: admin/kepala -> admin.html, pengajar -> portal-pengajar.html, orang tua -> ortu.html.
+       Pengajar & kepala dikenali dari dokumen staf/{uid} (role() mengembalikan 'ortu' untuk semua akun non-admin). */
+    tujuan: async function () {
+      var r = await this.role(); if (!r) return null;
+      if (r === 'admin') return { role: 'admin', href: 'admin.html' };
+      if (!cloud) return { role: 'ortu', href: 'ortu.html' };
+      var u = au && au.currentUser;
+      try {
+        var d = u ? await fs.collection('staf').doc(u.uid).get() : null;
+        if (d && d.exists) {
+          var s = d.data();
+          if (s.status === 'Nonaktif') return { role: 'nonaktif', href: '' };
+          return s.peran === 'Kepala' ? { role: 'kepala', href: 'admin.html', nama: s.nama } : { role: 'pengajar', href: 'portal-pengajar.html', nama: s.nama };
+        }
+      } catch (e) { }
+      return { role: 'ortu', href: 'ortu.html' };
+    },
     masuk: async function (u, p) {
       if (cloud) { await this.login(u, p); return await this.role(); }
       try { await this.login(u, p); return 'admin'; } catch (e) {}
