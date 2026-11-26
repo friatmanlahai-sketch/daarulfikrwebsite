@@ -55,7 +55,7 @@ DB.onUser(async function (u) {
   if (!u) { masuk = false; return; }
   try {
     var rr = await DB.peran(), b = $('lgbtn'); masuk = true; var HM = { admin: 'admin.html', kepala: 'admin.html', pengajar: 'portal-pengajar.html', ortu: 'ortu.html' }; b.textContent = rr === 'admin' || rr === 'kepala' ? 'Dashboard' : rr === 'pengajar' ? 'Portal Pengajar' : 'Portal Saya'; b.href = HM[rr] || 'masuk.html';
-    var pf = rr === 'ortu' ? await DB.profil() : null, nm = rr === 'admin' ? 'Admin' : (pf && pf.nama ? String(pf.nama).split(' ')[0] : '');
+    var pf = rr === 'ortu' ? await DB.profil() : null, nm = pf && pf.nama ? String(pf.nama).split(' ')[0] : '';
     if (nm) $('salam').textContent = "Assalamu'alaikum, " + nm + ' · Selamat ' + waktuSalam();
   } catch (e) {}
 });
@@ -455,3 +455,6 @@ function orgBuild(list, box) {
   var b = document.getElementById('orgc'); if (!b) return;
   try { var L = await DBL('struktur'); if (orgBuild(L, b)) $('struktur').style.display = ''; } catch (e) { }
 })();
+
+/* ===== editor tulisan halaman (diatur dari panel admin) ===== */
+(function () { var s = document.createElement('script'); s.src = 'editor.js'; document.body.appendChild(s); })();
