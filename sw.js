@@ -1,6 +1,6 @@
 /* Daarul Fikr — service worker sederhana. Naikkan nomor V setiap kali Anda mengubah file. */
-var V='df-v17';
-var SHELL=['./','index.html','struktur.html','tentang.html','program.html','kegiatan.html','faq.html','kontak.html','daftar.html','pengajar.html','pengumuman.html','galeri.html','infaq.html','privasi.html','halaman.css','style.css','bg.css','bg.js','ticker.css','fx.css','fx.js','ticker.js','offline.html','masuk.html','manifest.webmanifest','icon-192.png'];
+var V='df-v18';
+var SHELL=['./','index.html','struktur.html','tentang.html','program.html','kegiatan.html','faq.html','kontak.html','daftar.html','pengajar.html','pengumuman.html','galeri.html','infaq.html','privasi.html','halaman.css','style.css','bg.css','bg.js','editor.js','ticker.css','fx.css','fx.js','ticker.js','offline.html','masuk.html','manifest.webmanifest','icon-192.png'];
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(V).then(function(c){return Promise.all(SHELL.map(function(u){return c.add(u).catch(function(){})}))}).then(function(){return self.skipWaiting()}));
 });
