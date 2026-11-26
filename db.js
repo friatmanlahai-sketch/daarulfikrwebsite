@@ -114,7 +114,7 @@
       if (r !== 'ortu' || !cloud) return r;
       try {
         var d = await fs.collection('staf').doc(au.currentUser.uid).get();
-        if (d.exists && d.data().status !== 'Nonaktif') { var p = d.data().peran; if (p === 'Kepala') return 'kepala'; if (p === 'Pengajar') return 'pengajar'; }
+        if (d.exists && d.data().status !== 'Nonaktif') { var p = d.data().peran; if (p === 'Direktur' || p === 'Kepala') return 'kepala'; if (p === 'Pengajar') return 'pengajar'; }
       } catch (e) {}
       return 'ortu';
     },
