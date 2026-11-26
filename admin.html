@@ -392,8 +392,9 @@ var T={
  galeri:{t:'Galeri',f:[['foto','Foto','foto'],['ket','Keterangan','text'],['urut','Urutan tampil','number']],c:['foto','ket','urut']},
  pengaturan:{t:'Teks & Pengaturan Situs',f:[['wa','No. WhatsApp (format 62812...)'],['email','Email'],['jam','Jam layanan'],['biaya','Info biaya / infaq'],['instagram','Link Instagram'],['facebook','Link Facebook'],['youtube','Link YouTube']],c:[]}
 };
+T.halaman={t:'Edit Semua Halaman',x:1,f:[],c:[]};
 var D={},cur='dash',ROLE='admin',WHO={nama:'Administrator',jab:''};
-var IC={dash:'🏠',santri:'🧑‍🎓',absensi:'✅',hafalan:'📖',bayar:'💰',pengumuman:'📢',sorotan:'✨',statistik:'📈',agenda:'🗓️',testimoni:'💬',keunggulan:'⭐',alur:'🪜',faq:'❓',laporan:'📊',ortu:'👪',struktur:'🏛️',staf:'🧑‍💼',program:'📚',jadwal:'🗓️',pengajar:'👨‍🏫',galeri:'🖼️',pengaturan:'⚙️'};
+var IC={halaman:'✏️',dash:'🏠',santri:'🧑‍🎓',absensi:'✅',hafalan:'📖',bayar:'💰',pengumuman:'📢',sorotan:'✨',statistik:'📈',agenda:'🗓️',testimoni:'💬',keunggulan:'⭐',alur:'🪜',faq:'❓',laporan:'📊',ortu:'👪',struktur:'🏛️',staf:'🧑‍💼',program:'📚',jadwal:'🗓️',pengajar:'👨‍🏫',galeri:'🖼️',pengaturan:'⚙️'};
 var PEND=null;
 var PT=null;
 function badge(k,n){var b=document.querySelector('#nav button[data-c='+k+']');if(!b)return;var o=b.querySelector('.bdg');if(o)o.remove();if(n>0){var e=document.createElement('em');e.className='bdg';e.textContent=n;b.appendChild(e)}}
@@ -517,10 +518,10 @@ async function go(c){
   cur=c;document.body.dataset.c=c;$('ttl').textContent=c==='dash'?'Dashboard':T[c].t;$('side').classList.remove('open');
   document.querySelectorAll('#nav button').forEach(function(b){b.classList.toggle('on',b.dataset.c===c)});
   $('main').innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk" style="height:140px"></div>';
-  try{await Promise.all(['santri'].concat(c==='ortu'?['ortu','tautan']:c==='dash'||c==='laporan'?['absensi','hafalan','bayar']:c==='santri'?['program']:[c]).filter(function(x,i,a){return a.indexOf(x)===i}).map(load))}
+  try{await Promise.all(['santri'].concat(c==='ortu'?['ortu','tautan']:c==='dash'||c==='laporan'?['absensi','hafalan','bayar']:c==='santri'?['program']:c==='halaman'?['pengaturan']:[c]).filter(function(x,i,a){return a.indexOf(x)===i}).map(load))}
   catch(e){$('main').innerHTML='<p class="err">Gagal memuat data: '+esc(DB.err(e))+'</p>';return}
   if(c==='santri')await Promise.all(['staf','pengajar'].map(loadOpt));
-  c==='dash'?dash():c==='pengumuman'?pgmTab():c==='pengaturan'?setting():c==='laporan'?laporan():c==='ortu'?ortuTab():c==='staf'?stafTab():table(c);
+  c==='halaman'?halamanTab():c==='dash'?dash():c==='pengumuman'?pgmTab():c==='pengaturan'?setting():c==='laporan'?laporan():c==='ortu'?ortuTab():c==='staf'?stafTab():table(c);
 }
 function bars(v,l,f,cl){var mx=Math.max.apply(null,v.concat(1));return'<div class="chart">'+v.map(function(x,i){return'<div class="col '+(cl||'')+'"><span class="v">'+(x?f(x):'')+'</span><div class="br" style="height:'+Math.round(x/mx*100)+'px"></div><small>'+l[i]+'</small></div>'}).join('')+'</div>'}
 function dash(){
@@ -931,7 +932,7 @@ async function start(){
   var wl=document.createElement('div');wl.id='wel';wl.innerHTML='<div class="a" style="font-size:2.4rem;line-height:1.5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><div class="l"></div><div class="t">Selamat '+salamWaktu()+',</div><div class="n">'+esc(WHO.nama)+'</div><div class="r">'+(ROLE==='kepala'?'👑 DIREKTUR':'🛡 ADMIN')+' · DAARUL FIKR</div>';document.body.appendChild(wl);setTimeout(function(){wl.remove()},2800);
   $('login').classList.add('hide');$('app').classList.remove('hide');$('lm').textContent=DB.cloud?'Online · '+((window.FIREBASE_CONFIG||{}).projectId||''):'Mode Demo';if(!DB.cloud)$('demo').classList.remove('hide');
   var kp=ROLE==='kepala';
-  var NG=kp?[['Pantau',['dash','pengumuman','santri','absensi','hafalan','bayar','laporan']],['Lembaga',['staf','struktur']]]:[['Operasional',['dash','pengumuman','santri','ortu','staf','absensi','hafalan','bayar','laporan']],['Isi Website',['pengaturan','program','jadwal','agenda','statistik','testimoni','keunggulan','alur','faq','sorotan','pengajar','struktur','galeri']]];
+  var NG=kp?[['Pantau',['dash','pengumuman','santri','absensi','hafalan','bayar','laporan']],['Lembaga',['staf','struktur']]]:[['Operasional',['dash','pengumuman','santri','ortu','staf','absensi','hafalan','bayar','laporan']],['Isi Website',['halaman','pengaturan','program','jadwal','agenda','statistik','testimoni','keunggulan','alur','faq','sorotan','pengajar','struktur','galeri']]];
   $('nav').innerHTML=NG.map(function(g){return'<div class="ng">'+g[0]+'</div>'+g[1].map(function(k){return'<button data-c="'+k+'"><i>'+(IC[k]||'•')+'</i>'+(k==='dash'?'Dashboard':T[k].t)+'</button>'}).join('')}).join('');
   document.querySelectorAll('#nav button').forEach(function(b,i){b.style.animation='slideR .4s ease '+(i*40)+'ms backwards'});
   $('nav').onclick=function(e){var b=e.target.closest('button');if(b&&b.dataset.c)go(b.dataset.c)};$('mb').onclick=function(){$('side').classList.toggle('open')};
@@ -941,6 +942,17 @@ async function start(){
 var ME=null;
 var KN=['dash','pengumuman','santri','absensi','hafalan','bayar','laporan','staf','struktur'];
 var KT={Umum:'#2e9e68',Penting:'#d9534f',Kegiatan:'#4a90d9',Libur:'#e6b422'};
+/* ===== Edit semua halaman ===== */
+var HALAMAN=[['index','Beranda'],['tentang','Tentang'],['struktur','Struktur'],['program','Program'],['pengajar','Pengajar'],['kegiatan','Kegiatan'],['pengumuman','Pengumuman'],['faq','FAQ'],['kontak','Kontak'],['daftar','Daftar Santri'],['galeri','Galeri'],['infaq','Infaq & Donasi'],['privasi','Kebijakan Privasi']];
+function halamanTab(){
+  var isi=function(id){var d=(D.pengaturan||[]).filter(function(x){return x.id===id})[0];try{var o=JSON.parse(d.isi);return Object.keys(o.t||{}).length+(o.s||[]).length}catch(e){return 0}};
+  var baris=function(id,nama,file){var n=isi(id);return'<tr><td><b>'+esc(nama)+'</b></td><td>'+(n?n+' perubahan':'Asli')+'</td><td style="white-space:nowrap">'+(file?'<a class="btn" href="'+file+'.html?edit=1" target="_blank">✏️ Edit halaman</a> ':'')+(n?'<button class="btn g" data-reset="'+id+'">Kembalikan asli</button>':'')+'</td></tr>'};
+  $('main').innerHTML='<div class="card" style="margin-bottom:14px"><h3>Cara mengedit</h3><p>Klik <b>Edit halaman</b>, lalu klik tulisan yang ingin diubah dan tekan <b>Simpan</b>. Dari panel yang sama, satu bagian halaman bisa disembunyikan. Daftar pengajar, program, jadwal, galeri, dan isi lain tetap diubah lewat menunya masing-masing.</p></div>'
+   +'<div class="card" style="overflow:auto"><table style="width:100%"><tr><th>Halaman</th><th>Status</th><th>Aksi</th></tr>'+HALAMAN.map(function(h){return baris('hal_'+h[0],h[1],h[0])}).join('')+baris('hal__umum','Menu atas & footer (semua halaman)','')+'</table></div>';
+  document.querySelectorAll('[data-reset]').forEach(function(b){b.onclick=async function(){
+    if(!confirm('Hapus semua perubahan di sini dan kembali ke tulisan asli?'))return;
+    try{await DB.del('pengaturan',b.dataset.reset);toast('Sudah dikembalikan');go('halaman')}catch(e){alert('Gagal: '+DB.err(e))}}});
+}
 async function peranAkun(){
   var r=await DB.role();
   if(r==='admin'||r==='kepala')return r;
