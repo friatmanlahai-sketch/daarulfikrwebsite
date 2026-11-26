@@ -73,10 +73,15 @@ header #tick:hover #tickx,header #tick:focus-within #tickx{animation-play-state:
 .langkah li::before{content:counter(l);position:absolute;left:16px;top:14px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--hijau),var(--tua));color:var(--emas-t);font-family:Amiri,serif;font-weight:700;font-size:1.2rem}
 code,.kode{font-family:ui-monospace,Menlo,Consolas,monospace;background:#eef4ef;border:1px solid #d9e0da;border-radius:6px;padding:1px 6px;font-size:.88em}
 
-/* ===== Menu banyak: rapat di layar sedang, hamburger di bawah 1180px ===== */
+/* ===== Menu banyak: rapi, sejajar, hamburger di bawah 1180px ===== */
 .menu a{white-space:nowrap}
-@media(max-width:1380px) and (min-width:1181px){
- .menu{gap:12px}.menu a{font-size:.82rem}.menu .btn{padding:8px 14px}.menu .lgb{padding:5px 10px}
+.menu li{display:flex;align-items:center}
+.logo{flex:0 0 auto;white-space:nowrap}
+.menu{flex:0 1 auto;min-width:0;gap:clamp(12px,1.35vw,22px)}
+.menu .btn{display:inline-flex;align-items:center;justify-content:center;line-height:1.2;padding:9px 18px;margin:0}
+.menu .lgb{display:inline-flex;align-items:center;line-height:1.2;padding:6px 15px;margin:0}
+@media(max-width:1500px) and (min-width:1181px){
+ .menu a{font-size:.86rem}.menu .btn{padding:8px 14px}.menu .lgb{padding:5px 11px}
  .logo small{display:none}.logo{font-size:1.15rem}
 }
 @media(max-width:1180px){
