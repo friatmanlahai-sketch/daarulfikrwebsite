@@ -142,8 +142,8 @@ html{scroll-behavior:smooth}
 .sld-pb{position:absolute;left:0;bottom:0;height:3px;background:#e7c872;width:0;z-index:6}
 @media(max-width:820px){.pgs{padding:60px 0 50px}.sld{border-radius:22px;margin:0 -2px}.sld-s{grid-template-columns:1fr;min-height:0}.sld-f{aspect-ratio:4/5;max-height:480px}.sld-f::after{background:linear-gradient(180deg,transparent 55%,rgba(4,39,26,.9))}.sld-i{padding:26px 22px 54px}.sld-b{top:38%;width:42px;height:42px}.sld-b.p{left:8px}.sld-b.n{right:8px}}
 @media(prefers-reduced-motion:reduce){.sld-t{transition:none}.sld-s.on .sld-f>img,.sld-s.on .sld-i>*{animation:none}}
-.pgj{padding:84px 0}
-.pgj-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px;margin-top:30px}
+.pgjs{padding:84px 0}.pgjs h2::after,.pgjs .lead{margin-left:auto;margin-right:auto}
+.pgj-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,260px));justify-content:center;gap:22px;margin-top:30px}
 .pgj-k{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 20px 20px;background:#fff;border:1px solid #e3e8e1;border-radius:22px;box-shadow:0 8px 24px rgba(8,64,43,.08);transition:transform .3s,box-shadow .3s;overflow:hidden}
 .pgj-k::before{content:'';position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,#0f5d3f,#e7c872,#2a8a62)}
 .pgj-k:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(8,64,43,.18)}
@@ -252,7 +252,7 @@ html{scroll-behavior:smooth}
   </div>
   <svg class="sw b" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 L1440,0 L1440,20 C1100,70 760,0 420,34 C250,52 110,40 0,18Z" fill="#f6f7f2"/></svg>
 </section>
-<section class="pgj" id="pengajar" style="display:none">
+<section class="pgjs" id="pengajar" style="display:none">
   <div class="w" style="text-align:center">
     <h2>Pengajar Kami</h2>
     <p class="lead">Kenali para pengajar yang membimbing santri dengan sabar dan penuh perhatian.</p>
@@ -266,7 +266,7 @@ html{scroll-behavior:smooth}
     <div class="jlj">
       <a class="jk" href="tentang.html"><i>🕌</i><h3>Tentang Kami</h3><p>Profil, visi, dan misi Rumah Quran dan Literasi Daarul Fikr.</p><span>Selengkapnya →</span></a>
       <a class="jk" href="program.html"><i>📖</i><h3>Program &amp; Jadwal</h3><p>Iqra', tahsin, tahfidz, literasi, dan jadwal belajar rutin.</p><span>Lihat program →</span></a>
-      <a class="jk" href="pengajar.html"><i>👥</i><h3>Pengajar &amp; Pengurus</h3><p>Kenali orang-orang yang membimbing santri setiap hari.</p><span>Kenali mereka →</span></a>
+      <a class="jk" href="pengajar.html"><i>👥</i><h3>Pengajar</h3><p>Kenali para pengajar yang membimbing santri setiap hari.</p><span>Kenali mereka →</span></a>
       <a class="jk" href="kegiatan.html"><i>📸</i><h3>Kegiatan</h3><p>Agenda terbaru, pengumuman, dan galeri foto kegiatan.</p><span>Lihat kegiatan →</span></a>
       <a class="jk" href="faq.html"><i>💬</i><h3>Tanya Jawab</h3><p>Jawaban untuk pertanyaan yang sering diajukan orang tua.</p><span>Baca jawaban →</span></a>
       <a class="jk" href="pengumuman.html"><i>📢</i><h3>Pengumuman</h3><p>Kabar terbaru, libur, dan informasi penting dari pengurus.</p><span>Baca pengumuman →</span></a>
@@ -352,6 +352,8 @@ html{scroll-behavior:smooth}
 <script src="db.js"></script>
 <script src="site-config.js"></script>
 <script src="konten.js"></script>
+<script>/* Bagian pengajar: jangan timpa judulnya dengan teks dari pengaturan situs */
+if(window.KONTEN){var terap=KONTEN.apply;KONTEN.apply=function(st){var s=Object.assign({},st);delete s.pengajar_judul;terap(s);};}</script>
 <script>window.PAGE={need:["pengaturan", "statistik", "sorotan", "keunggulan", "jadwal", "pengumuman", "testimoni"],pgm:3};</script>
 <script src="site.js"></script>
 <script>
@@ -432,7 +434,7 @@ html{scroll-behavior:smooth}
   }
   function renderPengajar(list){
     var g=document.getElementById('pgjg'),sec=document.getElementById('pengajar');if(!g||!sec)return;
-    var L=(list||[]).filter(function(x){return x&&x.aktif!=='Tidak'&&x.nama}).sort(function(a,b){return(+a.urut||999)-(+b.urut||999)}).slice(0,8);
+    var L=(list||[]).filter(function(x){return x&&x.aktif!=='Tidak'&&x.nama&&/pengajar/i.test(x.peran||'Pengajar')}).sort(function(a,b){return(+a.urut||999)-(+b.urut||999)}).slice(0,8);
     g.textContent='';
     if(!L.length){sec.style.display='none';return}
     L.forEach(function(x){
