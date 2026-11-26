@@ -1,0 +1,37 @@
+/* Gaya tambahan untuk galeri, infaq, pengumuman, dan privasi. Memakai variabel dari style.css */
+.kos{padding:34px 18px;text-align:center;color:#5d6b63;font-style:italic;background:#fff;border:1px dashed var(--garis,#dfe5dc);border-radius:16px;grid-column:1/-1}
+
+/* ===== Infaq ===== */
+.ifq{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:34px;align-items:start;margin-top:28px}
+.ifk{background:linear-gradient(145deg,#08402b,#0f5d3f);color:#fff;border-radius:22px;padding:28px 26px;box-shadow:0 18px 44px rgba(8,64,43,.25);border:1px solid rgba(231,200,114,.5);position:relative;overflow:hidden}
+.ifk::after{content:'';position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(231,200,114,.35),transparent 70%)}
+.ifk small{display:block;color:#e7c872;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+.ifk .no{font-family:Amiri,serif;font-size:clamp(1.8rem,5vw,2.5rem);font-weight:700;letter-spacing:.06em;margin:8px 0 2px;word-break:break-all;font-variant-numeric:tabular-nums}
+.ifk .an{color:#cfe2d7}
+.ifk button{margin-top:16px;padding:9px 20px;border-radius:999px;border:1px solid #e7c872;background:rgba(231,200,114,.15);color:#f3dc93;font:800 .85rem 'Nunito Sans',sans-serif;cursor:pointer;transition:.25s}
+.ifk button:hover,.ifk button:focus-visible{background:#e7c872;color:#04271a;outline:0}
+.qr{text-align:center;background:#fff;border:1px solid var(--garis,#dfe5dc);border-radius:22px;padding:20px;box-shadow:0 10px 28px rgba(8,64,43,.1)}
+.qr img{max-width:260px;width:100%;height:auto;border-radius:12px;margin-top:10px}
+.ctl{display:grid;gap:14px}
+.ctl>div{background:#fff;border:1px solid var(--garis,#dfe5dc);border-left:4px solid var(--emas,#c9a24a);border-radius:14px;padding:14px 16px;line-height:1.55}
+.ctl i{font-style:normal;margin-right:6px}
+@media(max-width:820px){.ifq{grid-template-columns:1fr}}
+
+/* ===== Pengumuman ===== */
+.fl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:20px 0 6px}
+.fl input{flex:1 1 220px;min-width:0;padding:11px 16px;border-radius:999px;border:1px solid var(--garis,#dfe5dc);background:#fff;font:inherit}
+.fl input:focus{outline:0;border-color:var(--hijau,#0f5d3f);box-shadow:0 0 0 3px rgba(15,93,63,.15)}
+.ch{padding:8px 16px;border-radius:999px;border:1px solid var(--garis,#dfe5dc);background:#fff;color:var(--tua,#08402b);font:700 .86rem 'Nunito Sans',sans-serif;cursor:pointer;transition:.2s}
+.ch:hover{border-color:var(--emas,#c9a24a)}.ch.on{background:var(--tua,#08402b);border-color:var(--tua,#08402b);color:#fff}
+.pkg{display:grid;gap:16px;margin-top:20px}
+.pk{position:relative;background:#fff;border:1px solid var(--garis,#dfe5dc);border-left:5px solid var(--kc,#2e9e68);border-radius:16px;padding:18px 20px;box-shadow:0 6px 18px rgba(8,64,43,.06);transition:transform .25s,box-shadow .25s}
+.pk:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(8,64,43,.12)}
+.pk.pin{background:linear-gradient(90deg,#fffaf0,#fff 40%)}
+.pk .pn{position:absolute;top:12px;right:14px}
+.pk h3{margin:8px 0 6px;font-size:1.2rem}.pk p{margin:0;color:#4d5c53;white-space:pre-line;line-height:1.65}
+.mt{display:flex;flex-wrap:wrap;align-items:center;gap:8px;color:#6b776f;font-size:.82rem}
+
+/* ===== Privasi ===== */
+.doc{max-width:820px}.doc h2{font-size:1.4rem;margin:28px 0 8px}.doc ul{padding-left:22px;line-height:1.75}.doc p{line-height:1.75}
+.upd{color:#6b776f;font-size:.9rem;margin:0 0 6px}
+@media print{.fl,.mcta{display:none}}

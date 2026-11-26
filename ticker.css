@@ -1,0 +1,32 @@
+/* ===== Teks berjalan (ticker) ===== */
+#tick{position:relative;display:flex;align-items:stretch;height:40px;overflow:hidden;color:#fff;
+ background:linear-gradient(90deg,#04271a,#0b4a31 40%,#04271a);border-bottom:2px solid #c9a24a;isolation:isolate}
+#tick::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+ background:linear-gradient(100deg,transparent 35%,rgba(231,200,114,.16) 50%,transparent 65%);background-size:250% 100%;animation:tkSheen 6s linear infinite}
+@keyframes tkSheen{from{background-position:150% 0}to{background-position:-150% 0}}
+#tick .tick-l{position:relative;z-index:3;flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:0 26px 0 14px;
+ background:linear-gradient(135deg,#e7c872,#c9a24a);color:#04271a;font-weight:800;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+ clip-path:polygon(0 0,100% 0,calc(100% - 16px) 100%,0 100%);box-shadow:0 0 18px rgba(231,200,114,.5)}
+#tick .tick-l::before{content:'';width:9px;height:9px;border-radius:50%;background:#d9232d;box-shadow:0 0 0 0 rgba(217,35,45,.7);animation:tkPing 1.6s ease-out infinite}
+@keyframes tkPing{70%{box-shadow:0 0 0 9px rgba(217,35,45,0)}100%{box-shadow:0 0 0 0 rgba(217,35,45,0)}}
+#tick .tick-m{position:relative;z-index:2;flex:1;min-width:0;overflow:hidden;display:flex;align-items:center;
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 48px),transparent);mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 48px),transparent)}
+#tick .tick-t{display:none!important}
+#tickx{display:flex;width:max-content;white-space:nowrap;will-change:transform;animation:tkRun var(--tkd,40s) linear infinite}
+#tick:hover #tickx,#tick:focus-within #tickx{animation-play-state:paused}
+@keyframes tkRun{to{transform:translateX(-50%)}}
+#tickx .tg{display:inline-flex;align-items:center;gap:14px;padding-right:14px}
+#tickx .ti{display:inline-flex;align-items:center;gap:10px;font-size:.92rem;font-weight:600;letter-spacing:.01em;
+ background:linear-gradient(90deg,#fff,#f3dc93,#fff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:tkFlow 5s linear infinite;text-shadow:none}
+#tickx .ti.ar{font-family:Amiri,serif;font-size:1.2rem;font-weight:700;direction:rtl}
+#tickx .ti.pn{color:#fff;-webkit-text-fill-color:#ffd9dc}
+@keyframes tkFlow{to{background-position:200% 0}}
+#tickx .ti a{color:inherit;-webkit-text-fill-color:inherit;text-decoration:none}
+#tickx .ti a:hover{text-decoration:underline}
+#tickx .st{display:inline-block;color:#e7c872;font-size:.95rem;animation:tkSpin 5s linear infinite;filter:drop-shadow(0 0 5px rgba(231,200,114,.9))}
+@keyframes tkSpin{to{transform:rotate(360deg)}}
+@media(max-width:560px){#tick{height:36px}#tick .tick-l{font-size:.68rem;padding:0 22px 0 10px}#tickx .ti{font-size:.84rem}}
+@media(prefers-reduced-motion:reduce){#tickx{animation-duration:140s!important}#tick::before,#tickx .st,#tickx .ti,#tick .tick-l::before{animation:none!important}}
+@media print{#tick{display:none}}
+/* tick di luar header (portal, masuk, 404, offline) */
+body>#tick.solo{position:relative;z-index:70}

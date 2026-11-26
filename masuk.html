@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="fx.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masuk Portal — Daarul Fikr</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#08402b">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--h:#0f5d3f;--t:#08402b;--m:#04271a;--e:#c9a24a;--et:#e7c872;--bg:#f4f6f2;--ln:#dfe6e0;--ink:#1d2b24}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans',sans-serif;color:var(--ink);min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:radial-gradient(1200px 600px at 50% -10%,#145c41,var(--m));line-height:1.6}
+.kt{width:min(440px,100%);background:#fff;border-radius:22px;padding:30px 26px 24px;box-shadow:0 30px 70px rgba(0,0,0,.35);border:1px solid rgba(231,200,114,.5)}
+.lg{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.lg img{height:48px;width:auto;border-radius:8px}
+.lg b{font-family:Amiri,serif;font-size:1.35rem;color:var(--t);line-height:1.15}
+.lg small{display:block;font:600 .74rem 'Nunito Sans',sans-serif;color:#80611a}
+h1{font-family:Amiri,serif;color:var(--t);font-size:1.7rem;margin:14px 0 2px}
+.sub{color:#5d6b63;font-size:.93rem}
+.perans{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.perans span{font-size:.74rem;font-weight:800;padding:3px 10px;border-radius:999px;background:#eef4ef;color:var(--t);border:1px solid var(--ln)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#eef2ee;border-radius:12px;padding:4px;margin:16px 0 14px}
+.tabs button{border:0;background:none;padding:10px;border-radius:9px;font:800 .92rem 'Nunito Sans',sans-serif;color:#5d6b63;cursor:pointer}
+.tabs button.on{background:#fff;color:var(--t);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+label{display:block;font-weight:700;font-size:.88rem;margin-bottom:12px}
+input{display:block;width:100%;margin-top:5px;padding:12px 14px;border:1px solid #cfd8d1;border-radius:10px;font:inherit;background:#fff}
+input:focus{outline:0;border-color:var(--h);box-shadow:0 0 0 3px rgba(15,93,63,.15)}
+.btn{width:100%;padding:13px;border:0;border-radius:10px;background:linear-gradient(135deg,var(--h),var(--t));color:#fff;font:800 1rem 'Nunito Sans',sans-serif;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:wait}
+.err{min-height:1.2em;color:#b3261e;font-size:.88rem;font-weight:700;margin-bottom:8px}.err.ok{color:var(--h)}
+.ft{text-align:center;margin-top:14px;font-size:.88rem}.ft a{color:var(--h);font-weight:700}
+.demo{margin-top:12px;font-size:.8rem;background:#fff8e6;border:1px solid #ecd9a0;border-radius:10px;padding:8px 12px;color:#6b5513}
+[hidden]{display:none!important}
+html body>#tick.solo{position:fixed;top:0;left:0;right:0}
+</style>
+<link rel="stylesheet" href="ticker.css">
+</head>
+<body>
+<main class="kt">
+  <div class="lg"><img data-logo alt="Logo" src="logo.png"><div><b>Daarul Fikr<small>Rumah Quran dan Literasi</small></b></div></div>
+  <h1>Masuk Portal</h1>
+  <p class="sub">Satu pintu untuk semua. Anda akan diarahkan otomatis sesuai peran akun.</p>
+  <div class="perans"><span>Admin</span><span>Kepala</span><span>Pengajar</span><span>Orang Tua</span></div>
+  <div class="tabs"><button id="tm" class="on" type="button">Masuk</button><button id="td" type="button">Daftar Orang Tua</button></div>
+  <form id="fl">
+    <label>Email / Username<input id="le" autocomplete="username" required></label>
+    <label>Password<input id="lp" type="password" autocomplete="current-password" required></label>
+    <div class="err" id="lerr" role="alert"></div>
+    <button class="btn">Masuk</button>
+    <p class="ft"><a href="#" id="lupa">Lupa password?</a></p>
+  </form>
+  <form id="fr" hidden>
+    <label>Nama lengkap orang tua / wali<input id="rn" required maxlength="80" autocomplete="name"></label>
+    <label>No. WhatsApp<input id="rh" type="tel" required pattern="[0-9+\- ]{9,16}" placeholder="08xxxxxxxxxx" autocomplete="tel"></label>
+    <label>Email<input id="re" type="email" required autocomplete="username"></label>
+    <label>Password (minimal 8 karakter)<input id="rp" type="password" minlength="8" required autocomplete="new-password"></label>
+    <label>Ulangi password<input id="rq" type="password" minlength="8" required autocomplete="new-password"></label>
+    <div class="err" id="rerr" role="alert"></div>
+    <button class="btn">Buat Akun</button>
+    <p class="sub" style="margin-top:10px">Pendaftaran akun hanya untuk orang tua/wali. Akun admin, kepala, dan pengajar dibuat oleh admin.</p>
+  </form>
+  <div class="demo" id="demo" hidden>Mode demo (belum terhubung Firebase). Admin: <b>admin</b> / <b>admin123</b>.</div>
+  <p class="ft"><a href="index.html">← Kembali ke website</a></p>
+</main>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="db.js"></script>
+<script src="portal-guard.js"></script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var HOME=window.PORTAL_HOME,OK=['admin.html','ortu.html','portal-pengajar.html'];
+function tujuan(r){
+  var n=new URLSearchParams(location.search).get('next');
+  var h=HOME[r]||'ortu.html';
+  if(n&&OK.indexOf(n)>=0){var b={'admin.html':['admin','kepala'],'portal-pengajar.html':['pengajar','admin'],'ortu.html':['ortu']};if(b[n].indexOf(r)>=0)return n}
+  return h;
+}
+function tab(d){$('tm').classList.toggle('on',!d);$('td').classList.toggle('on',d);$('fl').hidden=d;$('fr').hidden=!d}
+$('tm').onclick=function(){tab(false)};$('td').onclick=function(){tab(true)};
+if(location.hash==='#daftar')tab(true);
+if(window.DB&&!DB.cloud)$('demo').hidden=false;
+$('fl').onsubmit=async function(e){e.preventDefault();$('lerr').className='err';$('lerr').textContent='';var b=e.target.querySelector('button');b.disabled=true;
+  try{var r=await DB.masuk($('le').value.trim(),$('lp').value);if(!r||r==='none'){try{await DB.logout()}catch(_){}throw new Error('Akun tidak aktif. Hubungi pengurus.')}location.replace(tujuan(r))}
+  catch(er){$('lerr').textContent=DB.err?DB.err(er):er.message;b.disabled=false}};
+$('fr').onsubmit=async function(e){e.preventDefault();$('rerr').textContent='';
+  if($('rp').value!==$('rq').value){$('rerr').textContent='Password dan ulangi password tidak sama.';return}
+  var b=e.target.querySelector('button');b.disabled=true;
+  try{await DB.ortuDaftar($('re').value,$('rp').value,$('rn').value.trim(),$('rh').value.trim());location.replace('ortu.html')}
+  catch(er){$('rerr').textContent=DB.err?DB.err(er):er.message;b.disabled=false}};
+$('lupa').onclick=async function(e){e.preventDefault();var m=$('le').value.trim();if(!m){$('lerr').textContent='Isi email Anda dulu, lalu klik Lupa password.';return}
+  try{await DB.reset(m);$('lerr').className='err ok';$('lerr').textContent='Tautan ganti password dikirim ke email Anda.'}catch(er){$('lerr').className='err';$('lerr').textContent=DB.err?DB.err(er):er.message}};
+/* sudah login? langsung arahkan */
+(async function(){try{var r=await DB.peran();if(r)location.replace(tujuan(r))}catch(e){}})();
+})();
+</script>
+<script src="ticker.js" defer></script>
+<script src="fx.js" defer></script>
+</body>
+</html>

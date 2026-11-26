@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /masuk.html
+Disallow: /ortu.html
+Disallow: /portal-pengajar.html
+Disallow: /setup.html
+Disallow: /offline.html
+
+Sitemap: https://daarulfikr-website.web.app/sitemap.xml

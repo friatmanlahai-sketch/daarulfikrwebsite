@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="fx.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Penyiapan Firebase — Daarul Fikr</title>
+<meta name="description" content="Panduan singkat dan pemeriksa koneksi Firebase untuk pengelola situs.">
+<meta property="og:title" content="Penyiapan Firebase — Daarul Fikr">
+<meta property="og:description" content="Panduan singkat dan pemeriksa koneksi Firebase untuk pengelola situs.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="icon-512.png">
+<meta property="og:locale" content="id_ID">
+<meta name="theme-color" content="#08402b">
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="bg.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script src="logo64.js"></script>
+<script src="anim.js"></script>
+<link rel="stylesheet" href="ticker.css">
+</head>
+<body>
+<div class="prog-bar" id="pbar"></div>
+<header>
+  <div class="tick" id="tick" role="marquee" aria-label="Info"><div class="tick-l"><span>Info</span></div><div class="tick-m"><div class="tick-t" id="tickt"></div></div></div>
+  <div class="bnr" id="bnr" hidden><span></span></div>
+  <div class="w"><nav>
+    <a href="index.html" class="logo"><img src="logo.png" alt="Logo Daarul Fikr" data-logo onerror="this.style.display='none'"><span>Daarul Fikr<small>Rumah Quran &amp; Literasi</small></span></a>
+    <button class="burger" id="burger" aria-label="Buka menu">&#9776;</button>
+    <ul class="menu" id="menu">
+      <li><a href="index.html">Beranda</a></li><li><a href="tentang.html">Tentang</a></li><li><a href="struktur.html">Struktur</a></li><li><a href="program.html">Program</a></li><li><a href="pengajar.html">Pengajar</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="pengumuman.html">Pengumuman</a></li><li><a href="faq.html">FAQ</a></li><li><a href="kontak.html">Kontak</a></li><li><a href="masuk.html" class="lgb" id="lgbtn">Login</a></li><li><a href="daftar.html" class="btn btn-e">Daftar Santri</a></li></ul>
+  </nav></div>
+</header>
+<main>
+<section class="phead"><div class="w"><nav class="crumb" aria-label="Jejak halaman"><a href="index.html">Beranda</a><span>/</span>Penyiapan</nav><h1>Penyiapan Firebase</h1><p>Panduan singkat untuk pengelola. Panduan lengkap ada di file PANDUAN-ONLINE.md.</p></div><svg class="gel" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0,44 C220,92 470,4 720,34 C970,64 1210,92 1440,38 L1440,80 L0,80Z" fill="#f6f7f2"/></svg></section>
+<section><div class="w teks">
+<h2>Periksa koneksi</h2>
+<p>Tekan tombol di bawah. Hasil hijau berarti bagian itu sudah siap. Hasil merah menjelaskan apa yang perlu diperbaiki.</p>
+<p style="margin-top:14px"><button class="btn btn-h" id="cekb" type="button">Periksa sekarang</button></p>
+<ul class="cek-list" id="hasil"></ul>
+<h2>Langkah penyiapan</h2>
+<ol class="langkah">
+<li>Firebase Console → <b>Build → Firestore Database</b> → Create database (mode production).</li>
+<li><b>Authentication → Sign-in method</b> → aktifkan <b>Email/Password</b>.</li>
+<li><b>Authentication → Users</b> → Add user: buat akun admin (email dan password kuat).</li>
+<li>Buka <span class="kode">firestore.rules</span>, ganti <span class="kode">GANTI-DENGAN-EMAIL-ADMIN@gmail.com</span> dengan email admin tadi, lalu <b>Publish</b> di tab Rules (atau <span class="kode">firebase deploy</span>).</li>
+<li><b>Authentication → Settings → Authorized domains</b> → pastikan domain situs Anda ada di daftar.</li>
+<li>Login di <a href="admin.html" style="color:var(--hijau);font-weight:700">admin.html</a> → menu <b>Alat</b> → <b>Isi data awal</b>.</li>
+</ol>
+</div></section>
+</main>
+<footer>
+  <div class="w fg">
+    <div><img class="flogo" src="logo.png" alt="Logo" data-logo onerror="this.style.display='none'"><strong>Daarul Fikr</strong><p>Rumah Quran dan Literasi. Membangun generasi yang cinta Al-Qur'an, gemar membaca, dan berakhlak mulia.</p><p id="sos" style="margin-top:8px"></p></div>
+    <div><h4>Tautan</h4><a href="tentang.html">Tentang kami</a><a href="struktur.html">Struktur organisasi</a><a href="program.html">Program &amp; jadwal</a><a href="pengajar.html">Pengajar</a><a href="kegiatan.html">Kegiatan</a><a href="faq.html">Tanya jawab</a><a href="daftar.html">Daftar santri</a><a href="masuk.html">Masuk portal</a><a href="pengumuman.html">Pengumuman</a><a href="galeri.html">Galeri</a><a href="infaq.html">Infaq &amp; donasi</a><a href="privasi.html">Kebijakan privasi</a></div>
+    <div><h4>Kontak</h4><p data-alamat>Desa Tolondadu, Kec. Bolaang Uki, Kab. Bolaang Mongondow Selatan, Sulawesi Utara</p><a data-wa href="#" target="_blank" rel="noopener">WhatsApp</a><a data-email href="#"></a></div>
+  </div>
+  <div class="w cp">&copy; <span id="tahun"></span> Rumah Quran dan Literasi Daarul Fikr. <a href="masuk.html" style="color:#8fb3a0">Login</a></div>
+</footer>
+<a href="daftar.html" class="mcta nocetak" id="mcta">Daftar santri baru →</a>
+<button class="top nocetak" id="top" aria-label="Kembali ke atas">↑</button>
+<a class="wa nocetak" data-wa href="#" target="_blank" rel="noopener" aria-label="Chat WhatsApp">💬</a>
+<div id="lgm" role="dialog" aria-modal="true" aria-label="Login">
+  <form id="lgf"><img src="logo.png" alt="" data-logo onerror="this.style.display='none'"><h3>Masuk</h3><p style="text-align:center;font-size:.9rem;color:#5d6b63">Satu login untuk admin, pengajar, dan orang tua</p>
+    <label>Email / Username<input id="lgu" autocomplete="username" required></label>
+    <label>Password<input id="lgp" type="password" autocomplete="current-password" required></label>
+    <p id="lge" role="alert"></p>
+    <p style="font-size:.9rem;margin-bottom:10px">Orang tua santri belum punya akun? <a href="masuk.html#daftar" style="color:var(--hijau);font-weight:700">Buat akun</a></p>
+    <div style="display:flex;gap:10px"><button class="btn btn-h" style="flex:1" type="submit">Masuk</button><button class="btn btn-o" type="button" id="lgx">Batal</button></div>
+  </form>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="db.js"></script>
+<script src="site-config.js"></script>
+<script src="konten.js"></script>
+<script>window.PAGE={need:["pengaturan"],pgm:5};</script>
+<script src="site.js"></script>
+<script>
+document.getElementById('cekb').onclick = async function () {
+  var ul = document.getElementById('hasil'); this.disabled = true; ul.textContent = '';
+  try {
+    (await DB.diag()).forEach(function (r) {
+      var li = document.createElement('li'); li.className = r.ok ? 'ok' : 'no'; li.textContent = (r.ok ? '✓ ' : '✗ ') + r.t;
+      if (r.m) { var s = document.createElement('small'); s.textContent = r.m; li.appendChild(s); } ul.appendChild(li);
+    });
+  } catch (e) { var li = document.createElement('li'); li.className = 'no'; li.textContent = '✗ ' + (DB.err ? DB.err(e) : e.message); ul.appendChild(li); }
+  this.disabled = false;
+};
+</script>
+<script src="bg.js" defer></script>
+<script src="ticker.js" defer></script>
+<script src="fx.js" defer></script>
+</body>
+</html>

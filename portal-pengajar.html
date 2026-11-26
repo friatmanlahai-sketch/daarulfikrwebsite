@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<style id="pg-h">html{visibility:hidden}</style>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="fx.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Pengajar — Rumah Quran dan Literasi Daarul Fikr</title>
+<meta name="description" content="Portal khusus pengajar Rumah Quran dan Literasi Daarul Fikr: jadwal, pengumuman, dan rekan pengajar.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#04271a">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png">
+<script src="orang.js"></script>
+<style>
+@property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;font-family:'Nunito Sans',system-ui,sans-serif;color:#eaf3ee;background:#04271a;overflow-x:hidden;line-height:1.6}
+a{color:inherit}
+button,input,textarea{font-family:inherit}
+
+/* ===== Background animasi ===== */
+#bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:radial-gradient(ellipse at 50% -10%,#0f5d3f 0%,#08402b 42%,#04271a 80%,#021810 100%)}
+#bg .pola{position:absolute;inset:-64px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M32 6l7 19 19 7-19 7-7 19-7-19-19-7 19-7z' fill='none' stroke='%23e7c872' stroke-opacity='.13'/%3E%3C/svg%3E");animation:pola 45s linear infinite}
+@keyframes pola{to{transform:translate(64px,64px)}}
+#bg .aur i{position:absolute;border-radius:50%;filter:blur(90px);will-change:transform}
+#bg .aur i:nth-child(1){width:50vmax;height:50vmax;left:-16vmax;top:-12vmax;background:radial-gradient(circle,#2a8a62,transparent 65%);opacity:.55;animation:b1 26s ease-in-out infinite alternate}
+#bg .aur i:nth-child(2){width:40vmax;height:40vmax;right:-14vmax;top:8vh;background:radial-gradient(circle,#c9a24a,transparent 65%);opacity:.3;animation:b2 30s ease-in-out infinite alternate}
+#bg .aur i:nth-child(3){width:44vmax;height:44vmax;left:25vw;bottom:-22vmax;background:radial-gradient(circle,#3aa7c0,transparent 65%);opacity:.3;animation:b3 34s ease-in-out infinite alternate}
+@keyframes b1{to{transform:translate(20vw,14vh) scale(1.2)}}
+@keyframes b2{to{transform:translate(-20vw,-8vh) scale(.9)}}
+@keyframes b3{to{transform:translate(-14vw,-16vh) scale(1.15)}}
+#bg .ray{position:absolute;inset:0;background:conic-gradient(from 200deg at 50% -20%,transparent 0 30%,rgba(231,200,114,.07) 40%,transparent 50% 60%,rgba(231,200,114,.05) 70%,transparent 80%);animation:ray 18s ease-in-out infinite alternate}
+@keyframes ray{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+#bgc{position:absolute;inset:0;width:100%;height:100%}
+
+/* ===== Layout ===== */
+.wrap{position:relative;z-index:2;max-width:1160px;margin:0 auto;padding:0 18px}
+.top{position:sticky;top:0;z-index:20;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:rgba(4,39,26,.62);border-bottom:1px solid rgba(231,200,114,.3)}
+.top .wrap{display:flex;align-items:center;gap:14px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:Amiri,serif;font-weight:700;font-size:1.15rem;line-height:1.1;color:#fff}
+.brand img{width:38px;height:38px;border-radius:10px;object-fit:contain;background:rgba(255,255,255,.9);padding:2px}
+.brand small{display:block;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#e7c872}
+.top .sp{flex:1}
+.tb{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;border:1px solid rgba(231,200,114,.55);background:rgba(231,200,114,.12);color:#f3dc93;font-weight:800;font-size:.82rem;text-decoration:none;cursor:pointer;transition:.25s}
+.tb:hover,.tb:focus-visible{background:#e7c872;color:#04271a;outline:0}
+#kel{display:none}
+
+/* kaca */
+.gl{position:relative;background:rgba(255,255,255,.075);border:1px solid rgba(231,200,114,.32);border-radius:22px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 12px 34px rgba(0,0,0,.28);transition:box-shadow .3s,border-color .3s,transform .25s ease-out;transform-style:preserve-3d}
+.gl:hover{border-color:rgba(231,200,114,.7);box-shadow:0 20px 48px rgba(0,0,0,.4),0 0 30px rgba(231,200,114,.12)}
+.rv{opacity:0;transform:translateY(28px)}
+.rv.in{animation:naik .8s cubic-bezier(.2,.9,.3,1.05) calc(var(--d,0)*90ms) forwards}
+@keyframes naik{to{opacity:1;transform:none}}
+
+/* ===== Gerbang login ===== */
+#gate{min-height:calc(100vh - 64px);display:grid;place-items:center;padding:34px 0}
+.lg{width:min(420px,100%);padding:34px 28px 28px;text-align:center}
+.lg .ar{font-family:Amiri,serif;font-size:1.7rem;color:#e7c872;line-height:1.3}
+.lg h1{font-family:Amiri,serif;margin:4px 0 2px;font-size:2rem;color:#fff}
+.lg h1 em{font-style:normal;background:linear-gradient(90deg,#e7c872,#fff,#e7c872);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 4s linear infinite}
+@keyframes flow{to{background-position:200% 0}}
+.lg p.s{margin:0 0 20px;color:#b9d2c5;font-size:.93rem}
+.lg label{display:block;text-align:left;font-weight:700;font-size:.84rem;color:#dfeee6;margin-bottom:14px}
+.lg input{display:block;width:100%;margin-top:6px;padding:12px 14px;border-radius:12px;border:1px solid rgba(231,200,114,.4);background:rgba(2,24,16,.55);color:#fff;font-size:1rem;transition:.25s}
+.lg input:focus{outline:0;border-color:#e7c872;box-shadow:0 0 0 3px rgba(231,200,114,.25)}
+.lgb{width:100%;padding:13px;border:0;border-radius:12px;cursor:pointer;font-weight:800;font-size:1rem;color:#04271a;background:linear-gradient(135deg,#f3dc93,#c9a24a);box-shadow:0 8px 22px rgba(201,162,74,.35);transition:transform .2s,box-shadow .2s}
+.lgb:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(201,162,74,.5)}
+.lgb[disabled]{opacity:.65;cursor:wait;transform:none}
+#lge{min-height:1.3em;margin:0 0 12px;color:#ffb4bb;font-size:.88rem;font-weight:700}
+.lg .back{display:inline-block;margin-top:16px;color:#b9d2c5;font-size:.88rem}
+
+/* ===== Dasbor ===== */
+#dash{display:none;padding:28px 0 70px}
+.hero{display:flex;align-items:center;gap:22px;padding:26px;flex-wrap:wrap}
+.hero .hf{position:relative;flex:0 0 auto;width:96px;height:96px}
+.hero .hf::before{content:'';position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(from var(--a),#e7c872,#fff7d6,#e7c872,#2a8a62,#e7c872);animation:rot 5s linear infinite}
+@keyframes rot{to{--a:360deg}}
+.hero .hf .hp{position:relative;width:96px;height:96px;border-radius:50%;object-fit:cover;font-size:2.4rem;border:3px solid #08402b}
+.hero .ht{flex:1;min-width:230px}
+.hero .sl{color:#e7c872;font-weight:800;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase}
+.hero h2{font-family:Amiri,serif;font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:2px 0 4px;color:#fff}
+.hero .hj{color:#c6dccf;font-size:.95rem;margin:0}
+.hero .jam{text-align:right;min-width:170px}
+.hero .jam b{display:block;font-family:Amiri,serif;font-size:2.3rem;line-height:1;color:#f3dc93;letter-spacing:.03em;font-variant-numeric:tabular-nums}
+.hero .jam span{font-size:.85rem;color:#c6dccf}
+.ayt{margin-top:18px;padding:16px 20px;text-align:center;min-height:118px;display:flex;flex-direction:column;justify-content:center}
+.ayt .a{font-family:Amiri,serif;font-size:clamp(1.3rem,3vw,1.8rem);color:#f3dc93;line-height:1.8;direction:rtl}
+.ayt .t{color:#cfe2d7;font-size:.9rem;margin:2px 0 0}
+.ayt .a,.ayt .t{transition:opacity .5s}.ayt.sm .a,.ayt.sm .t{opacity:0}
+
+.sts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-top:18px}
+.st{padding:18px 18px 16px;text-align:center}
+.st i{font-style:normal;font-size:1.6rem;display:block}
+.st b{display:block;font-family:Amiri,serif;font-size:2.2rem;line-height:1.1;color:#f3dc93;font-variant-numeric:tabular-nums}
+.st span{font-size:.84rem;color:#c6dccf;font-weight:600}
+
+.gr{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:18px}
+.c7{grid-column:span 7}.c5{grid-column:span 5}.c12{grid-column:span 12}
+@media(max-width:900px){.c7,.c5{grid-column:span 12}.hero .jam{text-align:left}}
+.pn{padding:22px}
+.pn h3{font-family:Amiri,serif;font-size:1.35rem;margin:0 0 14px;color:#fff;display:flex;align-items:center;gap:8px}
+.pn h3::after{content:'';flex:1;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(231,200,114,.7),transparent)}
+
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl td{padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.1);vertical-align:top}
+.tbl tr:last-child td{border:0}
+.tbl td:first-child{font-weight:800;color:#f3dc93;white-space:nowrap}
+.tbl td:last-child{color:#cfe2d7;white-space:nowrap;text-align:right}
+.tbl tr.ini{background:linear-gradient(90deg,rgba(231,200,114,.22),rgba(231,200,114,.04));box-shadow:inset 3px 0 0 #e7c872}
+.tbl tr.ini td:first-child::after{content:' • hari ini';color:#fff;font-weight:700;font-size:.72rem}
+@media(max-width:520px){.tbl td:last-child{white-space:normal}}
+
+.pg{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.pg li{padding:12px 14px;border-radius:14px;background:rgba(2,24,16,.35);border-left:4px solid #e7c872}
+.pg li b{color:#fff;display:block}
+.pg .pm{display:block;color:#a9c7b8;font-size:.78rem;margin:3px 0 5px}
+.pg .is{color:#d6e8de;font-size:.9rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.kt{display:inline-block;padding:1px 9px;border-radius:20px;font-size:.7rem;font-weight:800;margin-right:6px}
+.kt.Umum{background:#e3f1ea;color:#1e6b34}.kt.Penting{background:#f8d7da;color:#842029}.kt.Kegiatan{background:#dbeafe;color:#1d4f91}.kt.Libur{background:#fff3cd;color:#8a6d00}
+.kos{color:#a9c7b8;font-style:italic}
+
+.cat textarea{width:100%;min-height:150px;resize:vertical;padding:12px 14px;border-radius:14px;border:1px solid rgba(231,200,114,.4);background:rgba(2,24,16,.5);color:#fff;font-size:.95rem;line-height:1.6}
+.cat textarea:focus{outline:0;border-color:#e7c872;box-shadow:0 0 0 3px rgba(231,200,114,.22)}
+.cat small{display:block;margin-top:6px;color:#a9c7b8;font-size:.78rem}
+
+.ql{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.ql a{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 10px;text-align:center;text-decoration:none;border-radius:16px;background:rgba(2,24,16,.35);border:1px solid rgba(231,200,114,.25);font-weight:800;font-size:.88rem;transition:.25s}
+.ql a i{font-style:normal;font-size:1.6rem;transition:transform .3s}
+.ql a:hover,.ql a:focus-visible{background:rgba(231,200,114,.2);border-color:#e7c872;transform:translateY(-4px);outline:0}
+.ql a:hover i{transform:scale(1.25) rotate(-6deg)}
+
+.cari{width:min(280px,100%);padding:9px 14px;border-radius:999px;border:1px solid rgba(231,200,114,.45);background:rgba(2,24,16,.5);color:#fff;font-size:.9rem}
+.cari:focus{outline:0;border-color:#e7c872}
+.rh{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.rh h3{margin:0;flex:1}
+.rk{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.pk{display:flex;flex-direction:column;align-items:center;text-align:center;padding:22px 16px 16px;position:relative}
+.pk.sy::before{content:'Anda';position:absolute;top:12px;right:12px;padding:2px 10px;border-radius:20px;background:#e7c872;color:#04271a;font-size:.7rem;font-weight:800}
+.pk .pf{width:92px;height:92px;border-radius:50%;object-fit:cover;font-size:2.2rem;box-shadow:0 0 0 3px rgba(255,255,255,.9),0 0 0 5px #c9a24a;margin-bottom:12px}
+.pk b{font-family:Amiri,serif;font-size:1.15rem;color:#fff;line-height:1.25}
+.pk small{color:#e7c872;font-weight:700;font-size:.8rem;margin-top:2px}
+.pk p{margin:8px 0 0;color:#cfe2d7;font-size:.84rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pk button{margin-top:12px;padding:5px 16px;border-radius:999px;border:1px solid rgba(231,200,114,.7);background:rgba(231,200,114,.14);color:#f3dc93;font-weight:800;font-size:.76rem;cursor:pointer;transition:.25s}
+.pk button:hover,.pk button:focus-visible{background:#e7c872;color:#04271a;outline:0}
+footer{position:relative;z-index:2;text-align:center;padding:22px 18px 30px;color:#8fb3a0;font-size:.82rem}
+
+@media(max-width:560px){.brand span small{display:none}.tb.lb{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}.rv{opacity:1;transform:none}}
+@media print{#bg,.top,#gate,footer{display:none}body{background:#fff;color:#000}.gl{background:#fff;box-shadow:none;border-color:#999}}
+
+/* ===== Kontrol santri ===== */
+.tabs{position:sticky;top:64px;z-index:15;display:flex;gap:8px;overflow-x:auto;padding:10px 4px;margin:-10px 0 14px;scrollbar-width:none;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);background:rgba(4,39,26,.55);border-bottom:1px solid rgba(231,200,114,.2)}
+.tabs::-webkit-scrollbar{display:none}
+.tbn{flex:0 0 auto;padding:9px 16px;border-radius:999px;border:1px solid rgba(231,200,114,.35);background:rgba(255,255,255,.06);color:#dfeee6;font-weight:800;font-size:.85rem;cursor:pointer;transition:.2s;white-space:nowrap}
+.tbn:hover{border-color:#e7c872}.tbn.on{background:linear-gradient(135deg,#f3dc93,#c9a24a);color:#04271a;border-color:transparent;box-shadow:0 6px 16px rgba(201,162,74,.35)}
+.tp{display:none}.tp.on{display:block;animation:naik .45s ease}
+.tb{font-family:inherit}.tb.pr{background:linear-gradient(135deg,#f3dc93,#c9a24a);color:#04271a;border-color:transparent}.tb.sm{padding:4px 12px;font-size:.76rem}
+.tb[disabled]{opacity:.6;cursor:wait}
+.nudge{margin-top:14px}.nudge .tb{width:100%;justify-content:center;padding:12px}
+.pi{width:100%;padding:11px 14px;border-radius:12px;border:1px solid rgba(231,200,114,.4);background:rgba(2,24,16,.55);color:#fff;font:inherit;font-size:.95rem;transition:.2s;margin:0}
+.pi:focus{outline:0;border-color:#e7c872;box-shadow:0 0 0 3px rgba(231,200,114,.22)}
+select.pi option{color:#04271a;background:#fff}
+.fb{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 14px}.fb .pi{flex:1 1 180px;width:auto}
+.ck{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.88rem;color:#dfeee6;cursor:pointer}.ck input{width:18px;height:18px;accent-color:#e7c872}
+.cnt{color:#b9d2c5;font-size:.85rem;font-weight:700}
+h3.sub{font-family:Amiri,serif;font-size:1.3rem;margin:26px 0 12px;color:#fff}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.sk{display:flex;gap:12px;align-items:center;padding:14px;text-align:left;cursor:pointer;color:inherit;font:inherit;width:100%}
+.sk:hover{transform:translateY(-3px)}
+.sav{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:0 0 auto;font-size:1.4rem;box-shadow:0 0 0 2px #fff,0 0 0 4px #c9a24a}.sav.sm{width:38px;height:38px;font-size:1.1rem}.sav.big{width:84px;height:84px;font-size:2.2rem}
+.sb{min-width:0;flex:1}.sb b{display:block;font-family:Amiri,serif;font-size:1.1rem;color:#fff;line-height:1.25}.sb small{display:block;color:#a9c7b8;font-size:.78rem}
+.smt{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}.ef .tb{justify-content:center;min-height:40px}
+.bd{display:inline-block;padding:1px 9px;border-radius:20px;font-size:.7rem;font-weight:800;background:#e3f1ea;color:#1e6b34}
+.bd.kHadir{background:#d6f3e1;color:#136b36}.bd.kIzin{background:#dbeafe;color:#1d4f91}.bd.kSakit{background:#fff3cd;color:#8a6d00}.bd.kAlpa{background:#f8d7da;color:#842029}.bd.kx{background:rgba(255,255,255,.14);color:#dfeee6}.bd.kh{background:rgba(231,200,114,.22);color:#f3dc93}
+.bd.nA{background:#d6f3e1;color:#136b36}.bd.nB{background:#dbeafe;color:#1d4f91}.bd.nC{background:#fff3cd;color:#8a6d00}.bd.nUlang{background:#f8d7da;color:#842029}
+/* absensi */
+.seg{display:flex;gap:6px;flex-wrap:wrap}.seg button{flex:1 1 auto;min-width:64px;padding:8px 10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.2);background:rgba(2,24,16,.45);color:#dfeee6;font-weight:800;font-size:.82rem;cursor:pointer;transition:.15s}
+.seg button:hover{border-color:#e7c872}.seg .kHadir.on{background:#2e9e68;border-color:#2e9e68;color:#fff}.seg .kIzin.on{background:#4a90d9;border-color:#4a90d9;color:#fff}.seg .kSakit.on{background:#e6b422;border-color:#e6b422;color:#04271a}.seg .kAlpa.on{background:#d9534f;border-color:#d9534f;color:#fff}
+.sumr,.rk4{display:grid;grid-template-columns:repeat(auto-fit,minmax(70px,1fr));gap:8px;margin:0 0 14px}
+.sumr>div,.rk4>div{padding:8px;border-radius:12px;text-align:center;background:rgba(255,255,255,.07);border:1px solid rgba(231,200,114,.25)}.sumr b,.rk4 b{display:block;font-family:Amiri,serif;font-size:1.6rem;color:#f3dc93;line-height:1.1}.sumr span,.rk4 span{font-size:.74rem;color:#c6dccf;font-weight:700}
+.ar{display:grid;gap:10px}.ab{display:grid;grid-template-columns:minmax(150px,1.2fr) 2fr minmax(120px,1fr);gap:12px;align-items:center;padding:10px 14px}
+.an{display:flex;align-items:center;gap:10px;min-width:0}.an b{display:block;color:#fff;line-height:1.2}.an small{color:#a9c7b8;font-size:.75rem}
+@media(max-width:820px){.ab{grid-template-columns:1fr}}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.ar+.acts{position:sticky;bottom:10px}
+/* hafalan */
+.hf{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;align-items:end}.hf label{display:block;font-weight:700;font-size:.82rem;color:#dfeee6}.hf label .pi{margin-top:5px}.hf .tb{height:44px;justify-content:center}
+.hr{display:grid;gap:10px}.hi{display:flex;align-items:center;gap:12px;padding:12px 16px}.hb{flex:1;min-width:0}.hb b{display:block;color:#fff}.hb small{color:#b9d2c5;font-size:.8rem}
+.dx{border:0;background:rgba(217,83,79,.2);color:#ffb4bb;border-radius:10px;width:34px;height:34px;cursor:pointer}.dx:hover{background:#d9534f;color:#fff}
+/* rekap */
+.tw2{overflow-x:auto;padding:8px}.rt{width:100%;border-collapse:collapse;font-size:.88rem;min-width:620px}.rt th{text-align:center;color:#e7c872;padding:8px 6px;border-bottom:1px solid rgba(231,200,114,.4);font-size:.78rem}.rt th:first-child,.rt td.nm{text-align:left}.rt td{padding:9px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,.08);color:#eaf3ee}.rt td.nm{font-weight:800;color:#fff}.rt td.lw{color:#ffb4bb;font-weight:800}
+.rt td.kHadir{color:#7be0a4}.rt td.kIzin{color:#8dc0f5}.rt td.kSakit{color:#f2cf62}.rt td.kAlpa{color:#ff9a96}
+/* modal */
+#pjm{position:fixed;inset:0;z-index:200;display:none;place-items:center;padding:16px;background:rgba(2,18,12,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}#pjm.on{display:grid}
+#pjm .mc{width:min(560px,100%);max-height:90vh;overflow:auto;padding:24px 22px;background:linear-gradient(160deg,rgba(15,93,63,.96),rgba(6,48,31,.97));transform:none!important}
+.mx{position:absolute;top:10px;right:12px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:1rem;cursor:pointer}.mx:hover{background:rgba(255,255,255,.28)}
+.mh{font-family:Amiri,serif;font-size:1.6rem;margin:0 36px 12px 0;color:#fff}.sh{font-family:Amiri,serif;font-size:1.1rem;color:#f3dc93;margin:18px 0 8px}
+.dtop{display:flex;gap:14px;align-items:center;margin-bottom:12px}.dj{font-weight:800;color:#f3dc93}.ds{color:#b9d2c5;font-size:.85rem}
+.bio{display:grid;gap:6px;margin:0}.bio>div{display:grid;grid-template-columns:130px 1fr;gap:10px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.9rem}.bio dt{color:#a9c7b8;font-weight:700}.bio dd{margin:0;color:#fff;word-break:break-word}
+.hl2{list-style:none;margin:0;padding:0;display:grid;gap:6px}.hl2 li{display:flex;gap:8px;align-items:center;padding:8px 10px;border-radius:10px;background:rgba(2,24,16,.35);font-size:.88rem}.hl2 .tg{color:#a9c7b8;font-size:.75rem;white-space:nowrap}.hl2 b{flex:1;color:#fff}
+.ef{display:grid;gap:8px}
+#pjt{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;pointer-events:none;z-index:300;padding:12px 22px;border-radius:999px;background:#08402b;color:#fff;border:1px solid #e7c872;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:.3s;max-width:92vw;text-align:center}#pjt.on{opacity:1;transform:translate(-50%,0)}#pjt.bad{background:#7a1f24;border-color:#ff9a96}
+.pg.big{gap:14px}.pg .is.full{-webkit-line-clamp:unset;display:block;white-space:pre-line}
+/* cetak rapor */
+#cetak{display:none}
+@media print{
+ body.cprn>*:not(#cetak){display:none!important}
+ body.cprn #cetak{display:block;color:#000;background:#fff;padding:20px;font-family:'Nunito Sans',sans-serif}
+ #cetak h1{font-family:Amiri,serif;margin:0}#cetak .cs{margin:0 0 14px;color:#444}#cetak h2{font-size:1.1rem;margin:16px 0 6px;border-bottom:1px solid #999}
+ #cetak table.cb{width:100%;border-collapse:collapse}#cetak .cb th,#cetak .cb td{border:1px solid #999;padding:5px 8px;text-align:left;font-size:.9rem}#cetak .ttd{margin-top:36px;text-align:right;white-space:pre-line}
+ body:not(.cprn) #dash .tabs,body:not(.cprn) .top,body:not(.cprn) #bg,body:not(.cprn) .acts,body:not(.cprn) .fb{display:none!important}
+}
+</style>
+<link rel="stylesheet" href="ticker.css">
+</head>
+<body>
+
+<div id="bg" aria-hidden="true">
+  <div class="pola"></div>
+  <div class="aur"><i></i><i></i><i></i></div>
+  <div class="ray"></div>
+  <canvas id="bgc"></canvas>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a href="index.html" class="brand"><img src="logo.png" alt="Logo Daarul Fikr" onerror="this.style.display='none'"><span>Daarul Fikr<small>Portal Pengajar</small></span></a>
+    <span class="sp"></span>
+    <a href="index.html" class="tb lb">← Beranda</a>
+    <button type="button" class="tb" id="kel">Keluar</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- Gerbang login -->
+  <section id="gate" aria-label="Masuk pengajar">
+    <form class="gl lg rv" id="lgf" novalidate>
+      <div class="ar">السَّلَامُ عَلَيْكُمْ</div>
+      <h1>Portal <em>Pengajar</em></h1>
+      <p class="s">Masuk untuk melihat jadwal, pengumuman, dan rekan pengajar.</p>
+      <label>Email<input id="lgu" type="text" autocomplete="username" inputmode="email" required></label>
+      <label>Password<input id="lgp" type="password" autocomplete="current-password" required></label>
+      <p id="lge" role="alert"></p>
+      <button class="lgb" type="submit" id="lgs">Masuk</button>
+      <a class="back" href="index.html">← Kembali ke beranda</a>
+    </form>
+  </section>
+
+  <!-- Dasbor -->
+  <section id="dash" aria-label="Dasbor pengajar">
+    <nav class="tabs" role="tablist" aria-label="Menu portal">
+      <button class="tbn on" data-t="beranda" role="tab">🏠 Beranda</button>
+      <button class="tbn" data-t="santri" role="tab">🧑‍🎓 Santri</button>
+      <button class="tbn" data-t="absensi" role="tab">✅ Absensi</button>
+      <button class="tbn" data-t="hafalan" role="tab">🎯 Kontrol Santri</button>
+      <button class="tbn" data-t="rekap" role="tab">📊 Rekap &amp; Rapor</button>
+      <button class="tbn" data-t="pengumuman" role="tab">📢 Pengumuman</button>
+      <button class="tbn" data-t="rekan" role="tab">👥 Rekan</button>
+      <button class="tbn" data-t="profil" role="tab">👤 Profil</button>
+    </nav>
+
+    <div class="tp on" id="t-beranda">
+    <div class="gl hero rv">
+      <div class="hf" id="hf"></div>
+      <div class="ht">
+        <div class="sl" id="sl">Assalamu'alaikum</div>
+        <h2 id="nm">Ustadz / Ustadzah</h2>
+        <p class="hj" id="hj">Pengajar Daarul Fikr</p>
+      </div>
+      <div class="jam"><b id="jam">--:--:--</b><span id="tgl"></span></div>
+    </div>
+    <div id="nudge" class="nudge"></div>
+    <div class="gl ayt rv" id="ayt" style="--d:1"><div class="a" id="ayA"></div><p class="t" id="ayT"></p></div>
+
+    <div class="sts">
+      <div class="gl st rv" style="--d:2"><i>🧑‍🎓</i><b data-n id="s1">0</b><span>Santri aktif</span></div>
+      <div class="gl st rv" style="--d:3"><i>✅</i><b data-n id="s2">0</b><span>Hadir hari ini</span></div>
+      <div class="gl st rv" style="--d:4"><i>📖</i><b data-n id="s3">0</b><span>Kontrol 7 hari terakhir</span></div>
+      <div class="gl st rv" style="--d:5"><i>⭐</i><b data-n id="s4">0</b><span>Santri saya</span></div>
+    </div>
+
+    <div class="gr">
+      <div class="gl pn c7 rv" style="--d:1">
+        <h3>📅 Jadwal Pekan Ini</h3>
+        <table class="tbl"><tbody id="jd"></tbody></table>
+        <p class="kos" style="margin:10px 0 0;font-size:.8rem">Jadwal dapat berubah. Cek pengumuman untuk informasi terbaru.</p>
+      </div>
+      <div class="gl pn c5 rv" style="--d:2">
+        <h3>📢 Pengumuman Terbaru</h3>
+        <ul class="pg" id="pg"><li class="kos" style="border:0;background:none">Memuat…</li></ul>
+        <button type="button" class="tb" data-go="pengumuman" style="margin-top:14px">Semua pengumuman →</button>
+      </div>
+      <div class="gl pn c7 rv cat" style="--d:1">
+        <h3>📝 Catatan Pribadi</h3>
+        <textarea id="ctt" placeholder="Tulis catatan mengajar, materi santri yang perlu diulang (Iqra', Tahsin, Tahfidz, Literasi), atau pengingat…" aria-label="Catatan pribadi"></textarea>
+        <small id="cts">Tersimpan otomatis di perangkat ini saja.</small>
+      </div>
+      <div class="gl pn c5 rv" style="--d:2">
+        <h3>🚀 Pintasan</h3>
+        <div class="ql">
+          <a href="#absensi" data-go="absensi"><i>✅</i>Absen hari ini</a>
+          <a href="#hafalan" data-go="hafalan"><i>🎯</i>Kontrol santri</a>
+          <a href="#santri" data-go="santri"><i>🧑‍🎓</i>Data santri</a>
+          <a href="#rekap" data-go="rekap"><i>📊</i>Rekap &amp; rapor</a>
+          <a href="kegiatan.html"><i>📸</i>Kegiatan</a>
+          <a href="struktur.html"><i>🏛️</i>Struktur</a>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="tp" id="t-santri"></div>
+    <div class="tp" id="t-absensi"></div>
+    <div class="tp" id="t-hafalan"></div>
+    <div class="tp" id="t-rekap"></div>
+    <div class="tp" id="t-pengumuman"></div>
+    <div class="tp" id="t-rekan">
+      <div class="gl pn c12 rv">
+        <div class="rh"><h3>👥 Rekan Pengajar</h3><input class="cari" id="cr" type="search" placeholder="Cari nama atau jabatan…" aria-label="Cari pengajar"></div>
+        <div class="rk" id="rk"><p class="kos">Memuat…</p></div>
+      </div>
+    </div>
+    <div class="tp" id="t-profil"></div>
+  </section>
+</main>
+
+<div id="pjm" role="dialog" aria-modal="true"></div><div id="pjt" role="status"></div><div id="cetak"></div>
+<footer>&copy; <span id="thn"></span> Rumah Quran dan Literasi Daarul Fikr · Desa Tolondadu, Bolaang Uki</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="db.js"></script>
+<script src="portal-guard.js"></script>
+<script src="site-config.js"></script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var el=function(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+  var TZ='Asia/Makassar',reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  $('thn').textContent=new Date().getFullYear();
+
+  /* ===== Background: huruf hijaiyah + bintang melayang ===== */
+  (function(){
+    var cv=$('bgc'),c=cv.getContext('2d'),P=[],W,H,mx=.5,my=.5,HR='ابتثجحخدذرزسشصضطظعغفقكلمنهوي'.split('');
+    function size(){var d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}
+    function mk(first){return{x:Math.random()*W,y:first?Math.random()*H:H+50,s:14+Math.random()*30,v:.12+Math.random()*.4,r:Math.random()*6.28,vr:(Math.random()-.5)*.012,a:.07+Math.random()*.17,h:Math.random()<.55?HR[Math.random()*HR.length|0]:null,d:Math.random()*60}}
+    function init(){size();P=[];for(var i=0,n=W<600?24:56;i<n;i++)P.push(mk(true))}
+    function star(s){c.beginPath();for(var i=0;i<16;i++){var r=i%2?s*.42:s*.5,a=i*Math.PI/8;c.lineTo(Math.cos(a)*r,Math.sin(a)*r)}c.closePath();c.fill()}
+    function draw(move){
+      c.clearRect(0,0,W,H);
+      for(var i=0;i<P.length;i++){
+        var p=P[i];
+        if(move){p.y-=p.v;p.r+=p.vr;p.x+=Math.sin((p.y+p.d)/70)*.25;if(p.y<-60)P[i]=p=mk(false)}
+        var px=p.x+(mx-.5)*p.s*1.4,py=p.y+(my-.5)*p.s*1.4;
+        c.save();c.translate(px,py);c.rotate(p.r);c.fillStyle='rgba(231,200,114,'+p.a+')';
+        if(p.h){c.font=p.s+'px Amiri,serif';c.textAlign='center';c.textBaseline='middle';c.fillText(p.h,0,0)}
+        else star(p.s*.7);
+        c.restore();
+      }
+    }
+    init();addEventListener('resize',init);
+    addEventListener('pointermove',function(e){mx=e.clientX/W;my=e.clientY/H},{passive:true});
+    if(reduce){draw(false);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){draw(false)});return}
+    (function loop(){if(!document.hidden)draw(true);requestAnimationFrame(loop)})();
+  })();
+
+  /* ===== Waktu (WITA) ===== */
+  function wita(opt){return new Date().toLocaleString('id-ID',Object.assign({timeZone:TZ},opt))}
+  function hariIdx(){var n={Minggu:0,Senin:1,Selasa:2,Rabu:3,Kamis:4,Jumat:5,Sabtu:6};return n[wita({weekday:'long'})]}
+  function tick(){
+    $('jam').textContent=wita({hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).replace(/\./g,':');
+    $('tgl').textContent=wita({weekday:'long',day:'numeric',month:'long',year:'numeric'})+' · WITA';
+    var h=+wita({hour:'numeric',hour12:false});
+    $('sl').textContent="Assalamu'alaikum · "+(h<11?'Selamat pagi':h<15?'Selamat siang':h<18?'Selamat sore':'Selamat malam');
+  }
+  tick();setInterval(tick,1000);
+
+  /* ===== Jadwal ===== */
+  var JADWAL=[
+    {h:[1,2,3,4],hari:'Senin – Kamis',k:"Belajar Al-Qur'an (Iqra' & Tahsin)",w:'16.00 – 17.30'},
+    {h:[5],hari:'Jumat',k:'Tahfidz & setoran hafalan',w:'16.00 – 17.30'},
+    {h:[6],hari:'Sabtu',k:'Taman Baca & kelas literasi',w:'09.00 – 11.00'},
+    {h:[0],hari:'Ahad',k:'Kajian keislaman',w:"Ba'da Maghrib"}
+  ];
+  var hi=hariIdx(),tb=$('jd');
+  JADWAL.forEach(function(r){
+    var tr=el('tr',r.h.indexOf(hi)>-1?'ini':'');
+    tr.appendChild(el('td','',r.hari));tr.appendChild(el('td','',r.k));tr.appendChild(el('td','',r.w+(/Maghrib/.test(r.w)?'':' WITA')));
+    tb.appendChild(tr);
+  });
+  
+
+  /* ===== Ayat / hadis bergantian ===== */
+  var AY=[
+    ['خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ','"Sebaik-baik kalian adalah orang yang belajar Al-Qur\'an dan mengajarkannya." (HR. Al-Bukhari)'],
+    ['اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ','"Bacalah dengan (menyebut) nama Tuhanmu yang menciptakan." (QS. Al-\'Alaq: 1)'],
+    ['وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِنْ مُدَّكِرٍ','"Sungguh, telah Kami mudahkan Al-Qur\'an untuk peringatan, maka adakah orang yang mau mengambil pelajaran?" (QS. Al-Qamar: 17)'],
+    ['وَقُلْ رَبِّ زِدْنِي عِلْمًا','"Dan katakanlah, \'Ya Tuhanku, tambahkanlah ilmu kepadaku.\'" (QS. Thaha: 114)']
+  ],ai=Math.floor(Math.random()*AY.length);
+  function ay(){$('ayA').textContent=AY[ai][0];$('ayT').textContent=AY[ai][1]}
+  ay();
+  if(!reduce)setInterval(function(){var b=$('ayt');b.classList.add('sm');setTimeout(function(){ai=(ai+1)%AY.length;ay();b.classList.remove('sm')},520)},9000);
+
+  /* ===== Reveal, hitung naik, tilt ===== */
+  function reveal(root){
+    var els=(root||document).querySelectorAll('.rv:not(.in)');
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08});
+    els.forEach(function(e){io.observe(e)});
+  }
+  function hitung(e,to){
+    to=+to||0;if(reduce||!to){e.textContent=to;return}
+    var t0=performance.now(),d=1100;
+    (function f(t){var k=Math.min(1,(t-t0)/d);e.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0);
+  }
+  function tilt(root){
+    if(reduce||matchMedia('(hover:none)').matches)return;
+    (root||document).querySelectorAll('.pk:not([data-t]),.st:not([data-t])').forEach(function(c){
+      c.dataset.t=1;
+      c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(700px) rotateX('+(-y*8)+'deg) rotateY('+(x*8)+'deg) translateY(-4px)'});
+      c.addEventListener('pointerleave',function(){c.style.transform=''});
+    });
+  }
+
+  /* ===== Data ===== */
+  var ME=null,PENG=[];
+  function aktif(L){return(L||[]).filter(function(x){return x&&x.nama&&x.aktif!=='Tidak'}).sort(function(a,b){return(+a.urut||999)-(+b.urut||999)})}
+  function fmt(d){try{return d?new Date(d).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}):''}catch(e){return''}}
+  function cocok(x,u){
+    if(!u)return false;var m=(u.email||'').toLowerCase(),un=m.split('@')[0];
+    return [x.email,x.username,x.user].some(function(v){v=String(v||'').toLowerCase().trim();return v&&(v===m||v===un)});
+  }
+  function renderRekan(q){
+    var g=$('rk');g.textContent='';q=(q||'').toLowerCase().trim();
+    var L=PENG.filter(function(x){return !q||(x.nama+' '+DF.jab(x)).toLowerCase().indexOf(q)>-1});
+    if(!L.length){g.appendChild(el('p','kos',PENG.length?'Tidak ada yang cocok.':'Data pengajar belum tersedia.'));return}
+    L.forEach(function(x,i){
+      var k=el('div','gl pk rv'+(x===ME?' sy':'')),ket=DF.ket(x),j=DF.jab(x);k.style.setProperty('--d',Math.min(i,8));
+      k.appendChild(DF.avatar(x,'pf'));k.appendChild(el('b','',x.nama));
+      if(j)k.appendChild(el('small','',j));
+      if(ket)k.appendChild(el('p','',ket));
+      var b=el('button','','Detail');b.type='button';b.setAttribute('aria-label','Lihat detail '+x.nama);b.onclick=function(){DF.detail(x)};
+      k.appendChild(b);g.appendChild(k);
+    });
+    reveal(g);tilt(g);
+  }
+  $('cr').addEventListener('input',function(){renderRekan(this.value)});
+
+  function renderMe(u){
+    var nama=(ME&&ME.nama)||u.displayName||(u.email?u.email.split('@')[0]:'Pengajar');
+    $('nm').textContent=nama;
+    $('hj').textContent=(ME&&DF.jab(ME))||'Pengajar Daarul Fikr';
+    var hf=$('hf');hf.textContent='';
+    var av=Object.assign({nama:nama},ME||{});if(!av.foto&&STAF&&STAF.foto)av.foto=STAF.foto;hf.appendChild(DF.avatar(av,'hp'));window.PJ_me=av;if(window.PJ_head)window.PJ_head(av);
+    if(ME&&DF.ket(ME)){hf.style.cursor='pointer';hf.title='Lihat profil';hf.onclick=function(){DF.detail(ME)}}
+  }
+  function muatData(u){
+    if(!window.DB||!DB.list){$('pg').textContent='';$('pg').appendChild(el('li','kos','Data belum tersedia.'));return}
+    DB.list('pengajar').then(function(L){
+      PENG=aktif(L);ME=PENG.filter(function(x){return cocok(x,u)||x.id==='staf_'+u.uid})[0]||null;
+      renderMe(u);renderRekan('');
+    }).catch(function(){renderRekan('')});
+    DB.list('pengumuman').then(function(L){
+      L=(L||[]).slice().sort(function(a,b){if((a.pin==='Ya')!==(b.pin==='Ya'))return a.pin==='Ya'?-1:1;return(a.tgl||'')<(b.tgl||'')?1:-1});
+      var ul=$('pg');ul.textContent='';
+      if(!L.length){ul.appendChild(el('li','kos','Belum ada pengumuman.'));return}
+      var K={Umum:1,Penting:1,Kegiatan:1,Libur:1};
+      L.slice(0,4).forEach(function(x){
+        var li=document.createElement('li'),m=el('span','pm'),k=K[x.kategori]?x.kategori:'Umum';
+        m.appendChild(el('span','kt '+k,k));m.appendChild(document.createTextNode([fmt(x.tgl),x.oleh].filter(Boolean).join(' · ')));
+        li.appendChild(el('b','',(x.pin==='Ya'?'📌 ':'')+(x.judul||'')));li.appendChild(m);li.appendChild(el('span','is',x.isi||''));ul.appendChild(li);
+      });
+    }).catch(function(){$('pg').textContent='';$('pg').appendChild(el('li','kos','Gagal memuat pengumuman.'))});
+  }
+  window.PJ_hitung=function(){hitungSemua()};
+  function hitungSemua(){document.querySelectorAll('[data-n]').forEach(function(e){var n=e.dataset.n;if(n!=null&&e.dataset.done!==n){e.dataset.done=n;hitung(e,n)}})}
+
+  /* ===== Catatan pribadi (hanya di perangkat) ===== */
+  function catatan(u){
+    var key='df_catatan_'+((u&&(u.uid||u.email))||'tamu'),t=$('ctt'),tm;
+    try{t.value=localStorage.getItem(key)||''}catch(e){}
+    t.oninput=function(){clearTimeout(tm);tm=setTimeout(function(){try{localStorage.setItem(key,t.value);$('cts').textContent='Tersimpan otomatis di perangkat ini saja.'}catch(e){$('cts').textContent='Penyimpanan peramban tidak tersedia.'}},400)};
+  }
+
+  /* ===== Auth ===== */
+  var auth=null;try{auth=firebase.auth()}catch(e){}
+  function gate(){$('gate').style.display='';$('dash').style.display='none';$('kel').style.display='none';reveal(document)}
+  var STAF=null;
+  function masuk(u){
+    $('gate').style.display='none';$('dash').style.display='block';$('kel').style.display='inline-flex';
+    renderMe(u);catatan(u);muatData(u);hitungSemua();reveal(document);tilt(document);
+    if(window.PJ&&PJ.start)PJ.start(u,STAF);else window.PJ_pending=[u,STAF];
+  }
+  /* hanya akun Pengajar (atau admin) yang boleh masuk */
+  async function cekIzin(u){
+    var r=null;try{r=await DB.role()}catch(e){}
+    if(r==='admin')return{ok:true,staf:{nama:(u&&u.displayName)||'Admin',peran:'Admin',email:u&&u.email}};
+    if(!(window.DB&&DB.cloud))return{ok:false};
+    try{
+      var d=await firebase.firestore().collection('staf').doc(u.uid).get();
+      if(d.exists&&d.data().peran==='Pengajar'&&d.data().status!=='Nonaktif')return{ok:true,staf:Object.assign({id:u.uid,email:u.email},d.data())};
+      return{ok:false,kepala:d.exists&&d.data().peran==='Kepala'};
+    }catch(e){return{ok:false}}
+  }
+  function proses(u){
+    return cekIzin(u).then(function(r){
+      if(r.ok){STAF=r.staf;masuk(u);return true}
+      gate();
+      $('lge').textContent=r.kepala?'Akun Kepala masuk lewat halaman admin (admin.html).':'Akun ini bukan akun pengajar. Hubungi admin untuk dibuatkan akun.';
+      var done=function(){};try{if(window.DB&&DB.logout)DB.logout()}catch(e){}if(auth)auth.signOut().then(done,done);
+      return false;
+    });
+  }
+  if(auth)auth.onAuthStateChanged(function(u){u?proses(u):gate()});
+  else if(window.DB&&DB.onUser)DB.onUser(function(u){u?proses({uid:u.uid,email:u.email}):gate()});
+  else gate();
+  $('lgf').addEventListener('submit',function(e){
+    e.preventDefault();
+    var u=$('lgu').value.trim(),p=$('lgp').value,er=$('lge'),b=$('lgs');er.textContent='';
+    if(!u||!p){er.textContent='Isi email dan password.';return}
+    b.disabled=true;b.textContent='Memeriksa…';
+    var job=(window.DB&&typeof DB.login==='function')?Promise.resolve(DB.login(u,p)):(auth?auth.signInWithEmailAndPassword(u,p):Promise.reject({code:'x/none'}));
+    job.then(function(){
+      $('lgp').value='';
+      if(!auth)return proses({uid:'demo',email:u});   /* mode demo: tidak ada onAuthStateChanged */
+    }).catch(function(err){
+      var c=(err&&err.code)||'';
+      er.textContent=/invalid|wrong|user-not-found|credential/.test(c)?'Email atau password salah.':/too-many/.test(c)?'Terlalu banyak percobaan. Coba lagi nanti.':/network/.test(c)?'Tidak ada koneksi internet.':c==='x/none'?'Layanan login belum siap. Muat ulang halaman.':'Gagal masuk. Periksa email dan password.';
+    }).then(function(){b.disabled=false;b.textContent='Masuk'});
+  });
+  $('kel').addEventListener('click',function(){
+    var done=function(){ME=null;PENG=[];STAF=null;gate();try{history.replaceState(null,'',location.pathname)}catch(e){}};
+    try{if(window.DB&&typeof DB.logout==='function')DB.logout()}catch(e){}
+    if(auth)auth.signOut().then(done,done);else done();
+  });
+  reveal(document);
+})();
+</script>
+<script src="portal-pengajar.js"></script>
+<script src="ticker.js" defer></script>
+<script src="fx.js" defer></script>
+</body>
+</html>
