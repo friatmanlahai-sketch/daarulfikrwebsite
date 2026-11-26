@@ -173,7 +173,7 @@ function fmt(d){return d?new Date(d).toLocaleDateString('id-ID',{day:'2-digit',m
 function toast(m){var t=$('toast');t.textContent=m;t.className='show';clearTimeout(window._t);window._t=setTimeout(function(){t.className=''},2400)}
 function open_(h){$('mc').innerHTML=h;$('m').hidden=false}function closeM(){$('m').hidden=true}
 $('m').onclick=function(e){if(e.target===$('m'))closeM()};document.addEventListener('keydown',function(e){if(e.key==='Escape')closeM()});
-var KEP={nama:'',jab:'Kepala Rumah Quran dan Literasi Daarul Fikr'},PGJ=[],JDW=[],AGD=[],PGM=[],ME=null,ANAK=[],DATA={},booted=false,PROG=["Belajar Membaca Al-Qur'an (Iqra' & Tahsin)","Tahfidz Qur'an","Taman Baca & Literasi","Pelatihan Menulis"];
+var KEP={nama:'',jab:'Direktur Rumah Quran dan Literasi Daarul Fikr'},PGJ=[],JDW=[],AGD=[],PGM=[],ME=null,ANAK=[],DATA={},booted=false,PROG=["Belajar Membaca Al-Qur'an (Iqra' & Tahsin)","Tahfidz Qur'an","Taman Baca & Literasi","Pelatihan Menulis"];
 
 /* ---------- masuk / daftar ---------- */
 function tabAuth(d){$('tm').classList.toggle('on',!d);$('td').classList.toggle('on',d);$('fl').hidden=d;$('fr').hidden=!d}
