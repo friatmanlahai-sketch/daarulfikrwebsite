@@ -1,0 +1,116 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signed() { return request.auth != null; }
+    // GANTI dengan email akun admin yang Anda buat di Firebase Authentication.
+    // Hanya email di daftar ini yang dianggap admin. Akun orang tua TIDAK bisa menjadi admin.
+    function admin() {
+      return signed() && request.auth.token.email in ['rqldaarulfikrtolondadu@gmail.com'];
+    }
+    // Kepala = akun staf berperan Kepala yang aktif. Boleh MELIHAT data dan mengelola pengumuman, tidak boleh mengubah data lain.
+    function kepala() {
+      return signed()
+        && exists(/databases/$(database)/documents/staf/$(request.auth.uid))
+        && get(/databases/$(database)/documents/staf/$(request.auth.uid)).data.get('peran', '') == 'Kepala'
+        && get(/databases/$(database)/documents/staf/$(request.auth.uid)).data.get('status', 'Aktif') != 'Nonaktif';
+    }
+    // Pengajar = akun staf berperan Pengajar yang aktif. Dipakai portal-pengajar.html untuk mengontrol santri.
+    function pengajar() {
+      return signed()
+        && exists(/databases/$(database)/documents/staf/$(request.auth.uid))
+        && get(/databases/$(database)/documents/staf/$(request.auth.uid)).data.get('peran', '') == 'Pengajar'
+        && get(/databases/$(database)/documents/staf/$(request.auth.uid)).data.get('status', 'Aktif') != 'Nonaktif';
+    }
+    // Orang tua hanya boleh mengakses data anak yang sudah ditautkan ke akunnya.
+    function ownerOf(sid) {
+      return signed()
+        && exists(/databases/$(database)/documents/santri/$(sid))
+        && get(/databases/$(database)/documents/santri/$(sid)).data.get('ortuUid', '') == request.auth.uid;
+    }
+
+    // ---- Santri ----
+    match /santri/{id} {
+      // Publik boleh mendaftar. Jika menyertakan ortuUid, harus uid akun yang sedang login.
+      allow create: if request.resource.data.status == 'Menunggu'
+        && request.resource.data.nama is string && request.resource.data.nama.size() < 100
+        && request.resource.data.keys().hasAll(['nama', 'no', 'hp', 'ortu'])
+        && (!('foto' in request.resource.data) || (request.resource.data.foto is string && request.resource.data.foto.size() < 200000))
+        && (!('ortuUid' in request.resource.data) || (signed() && request.resource.data.ortuUid == request.auth.uid));
+      allow read: if (signed() && resource.data.get('ortuUid', '') == request.auth.uid) || pengajar();
+      // Pengajar hanya boleh mengubah kemampuan bacaan, catatan, dan foto santri.
+      allow update: if pengajar() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['level', 'catatan', 'foto'])
+        && (!('foto' in request.resource.data) || (request.resource.data.foto is string && request.resource.data.foto.size() < 200000));
+      // Orang tua hanya boleh mengubah kontak anaknya.
+      allow update: if signed() && resource.data.get('ortuUid', '') == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['hp', 'alamat']);
+    }
+
+    // ---- Data anak: orang tua hanya membaca; boleh mengajukan izin/sakit ----
+    match /absensi/{id} {
+      allow read: if ownerOf(resource.data.sid) || pengajar();
+      allow create: if pengajar() && request.resource.data.ket in ['Hadir', 'Izin', 'Sakit', 'Alpa'];
+      allow update: if pengajar() && request.resource.data.ket in ['Hadir', 'Izin', 'Sakit', 'Alpa']
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ket', 'catatan', 'oleh', 'ouid']);
+      allow create: if ownerOf(request.resource.data.sid)
+        && request.resource.data.ket in ['Izin', 'Sakit']
+        && request.resource.data.keys().hasOnly(['tanggal', 'sid', 'snama', 'ket', 'catatan', 'oleh', 'tgl']);
+    }
+    match /hafalan/{id} {
+      allow read: if ownerOf(resource.data.sid) || pengajar();
+      allow create: if pengajar() && request.resource.data.ouid == request.auth.uid;
+      allow update, delete: if pengajar() && resource.data.get('ouid', '') == request.auth.uid;
+    }
+    match /bayar/{id} { allow read: if ownerOf(resource.data.sid); }
+
+    // ---- Akun orang tua ----
+    match /ortu/{uid} {
+      allow read, create, update: if signed() && request.auth.uid == uid;
+    }
+    match /tautan/{id} {
+      allow create: if signed() && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'Menunggu'
+        && request.resource.data.keys().hasOnly(['uid', 'nama', 'hp', 'no', 'lahir', 'status', 'tgl']);
+      allow read: if signed() && resource.data.uid == request.auth.uid;
+    }
+
+    // ---- Publik ----
+    match /status/{no} {
+      allow get: if true;
+      allow create: if request.resource.data.status == 'Menunggu';
+    }
+    match /pengumuman/{id} { allow read: if true; allow write: if kepala(); }
+    match /program/{id} { allow read: if true; }
+    match /jadwal/{id} { allow read: if true; }
+    match /pengajar/{id} {
+      allow read: if true;
+      // Pengajar boleh mengganti foto miliknya sendiri di halaman publik (dokumen staf_<uid>).
+      allow update: if pengajar() && id == 'staf_' + request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['foto'])
+        && request.resource.data.foto is string && request.resource.data.foto.size() < 200000;
+    }
+    match /struktur/{id} { allow read: if true; }
+    // Akun staf: tiap staf hanya dapat membaca dokumennya sendiri (dipakai untuk mengenali peran Kepala).
+    match /staf/{uid} {
+      allow get: if signed() && request.auth.uid == uid;
+      // Pengajar boleh mengganti foto profilnya sendiri.
+      allow update: if signed() && request.auth.uid == uid && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['foto'])
+        && request.resource.data.foto is string && request.resource.data.foto.size() < 200000;
+    }
+    match /galeri/{id} { allow read: if true; }
+    match /pengaturan/{id} { allow read: if true; }
+    match /sorotan/{id} { allow read: if true; }
+    match /keunggulan/{id} { allow read: if true; }
+    match /alur/{id} { allow read: if true; }
+    match /faq/{id} { allow read: if true; }
+    match /statistik/{id} { allow read: if true; }
+    match /agenda/{id} { allow read: if true; }
+    match /testimoni/{id} { allow read: if true; }
+
+    // ---- Admin: semuanya ----
+    // Kepala boleh membaca semua kecuali koleksi 'admin' (supaya tidak dikira admin oleh panel).
+    match /{col}/{id} {
+      allow read: if admin() || (kepala() && col != 'admin');
+      allow write: if admin();
+    }
+  }
+}
