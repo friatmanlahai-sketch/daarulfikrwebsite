@@ -43,7 +43,7 @@
 </section>
 <section class="kosongpg"><div class="w"><p class="kosong" data-cek="pgjl" hidden>Data pengajar akan segera ditampilkan.</p></div></section>
 <section class="cta">
-  <div class="w"><h2>Pendaftaran santri baru dibuka</h2><p>Isi formulir sekarang. Pengurus akan menghubungi Anda lewat WhatsApp.</p><a href="daftar.html" class="btn">Daftar sekarang</a></div>
+  <div class="w"><h2>Pendaftaran santri baru dibuka</h2><p>Isi formulir sekarang. Kami akan menghubungi Anda lewat WhatsApp.</p><a href="daftar.html" class="btn">Daftar sekarang</a></div>
 </section>
 <footer>
   <div class="w fg">
@@ -73,6 +73,8 @@
 <script src="db.js"></script>
 <script src="site-config.js"></script>
 <script src="konten.js"></script>
+<script>/* Halaman khusus pengajar: jangan timpa judul dengan teks dari pengaturan situs */
+if(window.KONTEN){var terap=KONTEN.apply;KONTEN.apply=function(st){var s=Object.assign({},st);delete s.pengajar_judul;if(s.cta_teks)s.cta_teks=s.cta_teks.replace(/pengurus/gi,'Kami');terap(s);};}</script>
 <script>window.PAGE={need:["pengaturan", "pengajar"]};</script>
 <script src="site.js"></script>
 <script src="bg.js" defer></script>
