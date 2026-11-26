@@ -264,7 +264,7 @@ body.kepala .ocard.oroot{background:linear-gradient(145deg,#0b1f45,#1d3f78)}
 .chips button{flex:1;border:0;background:none;padding:10px 8px;border-radius:11px;font-weight:600;cursor:pointer;color:#5d6b63;transition:all .25s}
 .chips button.on{background:#fff;color:var(--ht);box-shadow:0 4px 12px rgba(8,64,43,.18)}
 .rc{display:inline-flex;align-items:center;gap:5px;padding:2px 11px;border-radius:20px;font-size:11px;font-weight:700;vertical-align:middle;background:linear-gradient(135deg,#f3dc93,#c9a24a);color:#3b2a00;font-family:Poppins,sans-serif;animation:glow 2.4s ease-in-out infinite}
-.Kepala{background:linear-gradient(135deg,#f3dc93,#c9a24a);color:#3b2a00}
+.Direktur{background:linear-gradient(135deg,#f3dc93,#c9a24a);color:#3b2a00}
 body.kepala .me .ring::after{content:'\1F451';position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-8deg);font-size:15px;z-index:2;animation:floaty 2.4s ease-in-out infinite}
 .me .mj{display:block;color:#e7c872;font-size:10.5px;margin-top:2px;line-height:1.25}
 #wel .n{font-size:2.1rem;font-weight:700;margin:2px 0;background:linear-gradient(90deg,#fff,#e7c872,#fff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flowbg 3s linear infinite,up .7s ease .85s backwards}
@@ -287,7 +287,7 @@ body.kepala .me .ring::after{content:'\1F451';position:absolute;top:-10px;left:5
 .pgc .ac{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
 .kt{padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700}
 .kt.Umum{background:#e3f1ea;color:#1e6b34}.kt.Penting{background:#f8d7da;color:#842029}.kt.Kegiatan{background:#dbeafe;color:#1d4f91}.kt.Libur{background:#fff3cd;color:#8a6d00}
-/* akses Kepala: hanya lihat + pengumuman */
+/* akses Direktur: hanya lihat + pengumuman */
 body.kepala:not([data-c=pengumuman]) :is(#add,#seed,#mass,#sadd,[onclick*="editForm("],[onclick^="rm("],[onclick^="stafForm"],[onclick^="stafReset"],[onclick^="stafToggle"],[onclick^="stafHapus"]){display:none!important}
 body.kepala :is(#bk,#rs,[onclick^="stat("],[onclick*=".then(mass)"]){display:none!important}
 /* ===== login: tulisan diam, latar bergerak ===== */
@@ -304,7 +304,7 @@ body.kepala :is(#bk,#rs,[onclick^="stat("],[onclick*=".then(mass)"]){display:non
   <div class="lg">
     <div class="lgl"><div class="bgfx lgfx" aria-hidden="true"><i></i><i></i><i></i></div><canvas class="lgfx" id="cvl" aria-hidden="true"></canvas><img data-logo src="logo.png" alt="Logo" style="height:90px;background:#fff;border-radius:12px;padding:6px 10px;align-self:flex-start" onerror="this.style.display='none'"><div class="hi" style="color:#e7c872;font-family:Amiri,serif;font-size:1.5rem"><span class="wave">👋</span> Selamat datang</div><h2>Panel Admin<br>Daarul Fikr</h2><p>Kelola pendaftaran santri, absensi, hafalan, pembayaran, dan isi website dalam satu tempat.</p><div class="ay">اقْرَأْ بِاسْمِ رَبِّكَ</div><div class="tkr lg-tkr" id="lgtkr" aria-hidden="true"><div class="tkr-m"><div class="tkr-t"></div></div></div></div>
     <div class="lgr"><form class="box" id="lf">
-      <h1>Masuk</h1><div class="chips" role="tablist" aria-label="Masuk sebagai"><button type="button" class="on" data-r="admin">🛡 Admin</button><button type="button" data-r="kepala">👑 Kepala</button></div><p class="sub" id="lh" style="margin-top:6px">Kelola seluruh data santri dan isi website.</p><p class="sub" id="mode" style="margin-top:4px"></p>
+      <h1>Masuk</h1><div class="chips" role="tablist" aria-label="Masuk sebagai"><button type="button" class="on" data-r="admin">🛡 Admin</button><button type="button" data-r="kepala">👑 Direktur</button></div><p class="sub" id="lh" style="margin-top:6px">Kelola seluruh data santri dan isi website.</p><p class="sub" id="mode" style="margin-top:4px"></p>
       <label>Email / Username<input id="u" autocomplete="username" required></label>
       <label>Password<input id="p" type="password" autocomplete="current-password" required></label>
       <div class="err" id="le"></div>
@@ -363,7 +363,7 @@ var SEED={
  alur:[{judul:"Isi formulir",deskripsi:"Lengkapi data santri dan orang tua di bagian Daftar."},{judul:"Simpan nomor",deskripsi:"Anda mendapat nomor pendaftaran. Catat atau cetak."},{judul:"Tunggu konfirmasi",deskripsi:"Pengurus menghubungi lewat WhatsApp untuk verifikasi."},{judul:"Mulai belajar",deskripsi:"Santri diterima dan mengikuti kelas sesuai jadwal."}],
  faq:[{tanya:"Usia berapa santri bisa mendaftar?",jawab:"Anak usia sekolah dasar hingga remaja. Warga dewasa juga boleh ikut kelas membaca Al-Qur'an dan kajian."},{tanya:"Apakah santri harus sudah bisa membaca Al-Qur'an?",jawab:"Tidak. Pemula mulai dari Iqra'. Pada formulir Anda cukup memilih kemampuan saat ini."},{tanya:"Berapa biayanya?",jawab:"Hubungi pengurus lewat WhatsApp untuk informasi infaq bulanan terbaru."},{tanya:"Bagaimana tahu pendaftaran saya sudah diterima?",jawab:'Masukkan nomor pendaftaran pada kolom "Cek status" di bagian Daftar. Pengurus juga menghubungi lewat WhatsApp.'},{tanya:"Boleh mendaftarkan lebih dari satu anak?",jawab:"Boleh. Isi formulir satu kali untuk setiap anak."}]
 };
-SEED.struktur=[{nama:'Nama Kepala',jabatan:'Kepala Rumah Quran dan Literasi',induk:''},{nama:'Nama Sekretaris',jabatan:'Sekretaris',induk:'Nama Kepala'},{nama:'Nama Bendahara',jabatan:'Bendahara',induk:'Nama Kepala'},{nama:'Nama Koordinator Tahfidz',jabatan:'Koordinator Tahfidz',induk:'Nama Kepala'},{nama:'Nama Koordinator Literasi',jabatan:'Koordinator Literasi',induk:'Nama Kepala'}];
+SEED.struktur=[{nama:'Nama Direktur',jabatan:'Direktur Rumah Quran dan Literasi',induk:''},{nama:'Nama Sekretaris',jabatan:'Sekretaris',induk:'Nama Direktur'},{nama:'Nama Bendahara',jabatan:'Bendahara',induk:'Nama Direktur'},{nama:'Nama Koordinator Tahfidz',jabatan:'Koordinator Tahfidz',induk:'Nama Direktur'},{nama:'Nama Koordinator Literasi',jabatan:'Koordinator Literasi',induk:'Nama Direktur'}];
 var today=function(){return new Date().toISOString().slice(0,10)};
 var rp=function(n){return 'Rp '+(+n||0).toLocaleString('id-ID')};
 function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
@@ -502,7 +502,7 @@ function pengajarDari(s){
 function kepalaDari(){
   var st=(D.pengaturan||[]).filter(function(i){return i.id==='situs'})[0]||{};
   var k=(D.staf||[]).filter(function(x){return x.status!=='Nonaktif'&&/kepala|ketua|pimpinan|direktur/i.test(x.jabatan||'')})[0];
-  return{nama:st.kepala_nama||(k&&k.nama)||'',jab:st.kepala_jabatan||(k&&k.jabatan)||'Kepala Rumah Quran dan Literasi Daarul Fikr'};
+  return{nama:st.kepala_nama||(k&&k.nama)||'',jab:st.kepala_jabatan||(k&&k.jabatan)||'Direktur Rumah Quran dan Literasi Daarul Fikr'};
 }
 function aktif(){return(D.santri||[]).filter(function(x){return x.status==='Diterima'}).sort(function(a,b){return a.nama.localeCompare(b.nama)})}
 function lbl(k,v,c){
@@ -534,7 +534,7 @@ function dash(){
   var A=aktif(),pc={};A.forEach(function(x){var k=x.program||'Lainnya';pc[k]=(pc[k]||0)+1});var pk=Object.keys(pc).sort(function(a,b){return pc[b]-pc[a]}),pm=Math.max.apply(null,pk.map(function(k){return pc[k]}).concat(1));
   var rec=D.santri.slice().sort(function(a,b){return(a.tgl||'')<(b.tgl||'')?1:-1}).slice(0,6);
   var sum=inc[5],S=[['🧑‍🎓','Total pendaftar',D.santri.length,'santri',''],['⏳','Menunggu verifikasi',n(D.santri,function(x){return x.status==='Menunggu'}),'santri','w'],['✅','Santri aktif',A.length,'santri',''],['🕌','Hadir hari ini',n(D.absensi,function(x){return x.tanggal===today()&&x.ket==='Hadir'}),'absensi','bl'],['📖','Setoran bulan ini',n(D.hafalan,function(x){return(x.tanggal||'').slice(0,7)===th}),'hafalan',''],['💰','Pemasukan bulan ini',rp(sum),'bayar','m']];
-  $('main').innerHTML='<div class="hello"><div><h2><span class="wave">👋</span> Selamat '+salamWaktu()+', '+esc(WHO.nama)+' <span class="rc">'+(ROLE==='kepala'?'👑 Kepala':'🛡 Admin')+'</span></h2><p>'+(ROLE==='kepala'?'Pantau perkembangan santri dan kelola pengumuman. Berikut ringkasan hari ini.':'Selamat datang di panel admin Daarul Fikr. Berikut ringkasan hari ini.')+'</p></div><div class="qa">'+(ROLE==='kepala'?'<button class="btn e" onclick="go(\'laporan\')">📊 Laporan</button><button class="btn e" onclick="go(\'pengumuman\')">📢 Pengumuman</button><button class="btn e" onclick="go(\'struktur\')">🏛️ Struktur</button>':'')+'<button class="btn e" onclick="go(\'santri\').then(function(){editForm(\'santri\',null)})">+ Santri baru</button><button class="btn e" onclick="go(\'absensi\').then(mass)">✅ Absen hari ini</button><button class="btn e" onclick="go(\'pengumuman\').then(function(){editForm(\'pengumuman\',null)})">📢 Pengumuman</button></div></div>'
+  $('main').innerHTML='<div class="hello"><div><h2><span class="wave">👋</span> Selamat '+salamWaktu()+', '+esc(WHO.nama)+' <span class="rc">'+(ROLE==='kepala'?'👑 Direktur':'🛡 Admin')+'</span></h2><p>'+(ROLE==='kepala'?'Pantau perkembangan santri dan kelola pengumuman. Berikut ringkasan hari ini.':'Selamat datang di panel admin Daarul Fikr. Berikut ringkasan hari ini.')+'</p></div><div class="qa">'+(ROLE==='kepala'?'<button class="btn e" onclick="go(\'laporan\')">📊 Laporan</button><button class="btn e" onclick="go(\'pengumuman\')">📢 Pengumuman</button><button class="btn e" onclick="go(\'struktur\')">🏛️ Struktur</button>':'')+'<button class="btn e" onclick="go(\'santri\').then(function(){editForm(\'santri\',null)})">+ Santri baru</button><button class="btn e" onclick="go(\'absensi\').then(mass)">✅ Absen hari ini</button><button class="btn e" onclick="go(\'pengumuman\').then(function(){editForm(\'pengumuman\',null)})">📢 Pengumuman</button></div></div>'
    +'<div class="card" style="margin-bottom:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end"><div style="flex:1;min-width:220px"><h3 style="margin-bottom:6px">Tautan pendaftaran untuk dibagikan</h3><input id="lnk" readonly style="margin:0"></div><button class="btn" id="cp">Salin</button><a class="btn e" id="shw" target="_blank" rel="noopener" style="text-decoration:none">Bagikan lewat WhatsApp</a></div>'
    +'<div class="stats">'+S.map(function(x){return'<div class="st '+x[4]+'" onclick="go(\''+x[3]+'\')"><i>'+x[0]+'</i><div><b>'+x[2]+'</b><span>'+x[1]+'</span></div></div>'}).join('')+'</div>'
    +'<div class="g3"><div class="card"><h3>Pendaftar per bulan</h3>'+bars(pend,ls,String)+'</div><div class="card"><h3>Pemasukan per bulan (Rp ribu)</h3>'+bars(inc,ls,function(v){return Math.round(v/1000)},'g')+'</div>'
@@ -593,7 +593,7 @@ function editForm(c,id){
     if(d.sid){var s=find('santri',d.sid)||aktif().filter(function(z){return z.id===d.sid})[0];d.snama=s?s.nama:''}
     if(c==='galeri'&&!d.foto){alert('Pilih foto terlebih dahulu.');return}
     if(c==='santri'){var bad=[['nik','NIK'],['kk','No. KK']].filter(function(z){return d[z[0]]&&!/^\d{16}$/.test(d[z[0]])})[0];if(bad){alert(bad[1]+' harus 16 digit angka.');return}}
-    if(c==='pengumuman'){d.oleh=WHO.nama+' ('+(ROLE==='kepala'?'Kepala':'Admin')+')';if(!id)d.tgl=today()}
+    if(c==='pengumuman'){d.oleh=WHO.nama+' ('+(ROLE==='kepala'?'Direktur':'Admin')+')';if(!id)d.tgl=today()}
     if(d.jumlah)d.jumlah=+d.jumlah;if(d.urut!==undefined&&d.urut!=='')d.urut=+d.urut;
     try{
       if(id){await DB.set(c,id,d);Object.assign(x,d);if(c==='santri')await DB.setStatus(x.no,x.nama,x.status)}
@@ -631,7 +631,7 @@ function LOGO(){return SET.logo||window.LOGO64||new URL('logo.png',location.href
 function applyLogo(){document.querySelectorAll('img[data-logo]').forEach(function(i){i.src=SET.logo||window.LOGO64||'logo.png';i.style.display=''})}
 async function loadLogo(){try{var r=await DB.list('pengaturan');SET=r.filter(function(i){return i.id==='situs'})[0]||{};applyLogo()}catch(e){}}
 var SETG=[
- ['Identitas & logo',[['nama','Nama singkat (header & footer)'],['tagline','Tagline di bawah nama'],['logo','Logo','foto'],['admin_nama','Nama Admin (tampil di panel admin)'],['admin_jabatan','Jabatan Admin (mis. Administrator Sistem)'],['kepala_nama','Nama Kepala / Pimpinan (tampil di rapor dan panel Kepala)'],['kepala_jabatan','Jabatan Kepala (mis. Kepala Rumah Quran)'],['judul_web','Judul tab browser & Google'],['deskripsi_web','Deskripsi untuk Google','area']]],
+ ['Identitas & logo',[['nama','Nama singkat (header & footer)'],['tagline','Tagline di bawah nama'],['logo','Logo','foto'],['admin_nama','Nama Admin (tampil di panel admin)'],['admin_jabatan','Jabatan Admin (mis. Administrator Sistem)'],['kepala_nama','Nama Direktur / Pimpinan (tampil di rapor dan panel Direktur)'],['kepala_jabatan','Jabatan Direktur (mis. Direktur Rumah Quran)'],['judul_web','Judul tab browser & Google'],['deskripsi_web','Deskripsi untuk Google','area']]],
 ['Pita pengumuman di atas halaman',[['banner_teks','Teks pita (kosongkan untuk menyembunyikan)'],['banner_link','Link tombol "Selengkapnya" (opsional, mis. #daftar)']]],
  ['Pita berjalan paling atas',[['ticker_tampil','Tampilkan pita berjalan','sel',['Ya','Tidak']],['ticker_label','Label di kiri pita'],['ticker_teks','Teks berjalan (satu baris = satu pesan; tulis {waktu} agar diganti pagi/siang/sore/malam)','area']]],
  ['Ucapan selamat datang di beranda',[['selamat_tampil','Tampilkan ucapan besar di beranda','sel',['Ya','Tidak']],['selamat_arab','Tulisan Arab'],['selamat_judul','Judul besar'],['selamat_teks','Kalimat di bawahnya']]],
@@ -756,9 +756,9 @@ function genPw(){
 }
 function stafTab(){
   var L=(D.staf||[]).filter(function(x){return x.peran!=='Pengurus'}),n=function(p){return L.filter(function(x){return x.peran===p}).length};
-  $('main').innerHTML='<div class="card" style="margin-bottom:14px"><h3>Akun pengajar</h3><p class="sub" style="text-align:left">Daftarkan akun untuk pengajar Daarul Fikr. Akun Kepala dapat memantau semua data dan mengelola pengumuman, tetapi tidak bisa mengubah data lain. Password sementara dibuat di sini dan dibagikan langsung ke yang bersangkutan.'+(DB.cloud?'':' <b>Mode demo:</b> hanya data yang tersimpan, akun login belum dibuat.')+'</p>'
-   +'<div style="display:flex;gap:18px;margin-top:10px;flex-wrap:wrap"><span><b>'+L.length+'</b> total</span><span><span class="b Pengajar">Pengajar</span> <b>'+n('Pengajar')+'</b></span><span><span class="b Kepala">👑 Kepala</span> <b>'+n('Kepala')+'</b></span></div></div>'
-   +'<div class="bar"><input id="sq" placeholder="Cari nama atau email..."><select id="sp"><option value="">Semua peran</option><option>Kepala</option><option>Pengajar</option></select><button class="btn e" id="sadd">+ Daftarkan akun</button></div>'
+  $('main').innerHTML='<div class="card" style="margin-bottom:14px"><h3>Akun pengajar</h3><p class="sub" style="text-align:left">Daftarkan akun untuk pengajar Daarul Fikr. Akun Direktur dapat memantau semua data dan mengelola pengumuman, tetapi tidak bisa mengubah data lain. Password sementara dibuat di sini dan dibagikan langsung ke yang bersangkutan.'+(DB.cloud?'':' <b>Mode demo:</b> hanya data yang tersimpan, akun login belum dibuat.')+'</p>'
+   +'<div style="display:flex;gap:18px;margin-top:10px;flex-wrap:wrap"><span><b>'+L.length+'</b> total</span><span><span class="b Pengajar">Pengajar</span> <b>'+n('Pengajar')+'</b></span><span><span class="b Direktur">👑 Direktur</span> <b>'+n('Direktur')+'</b></span></div></div>'
+   +'<div class="bar"><input id="sq" placeholder="Cari nama atau email..."><select id="sp"><option value="">Semua peran</option><option>Direktur</option><option>Pengajar</option></select><button class="btn e" id="sadd">+ Daftarkan akun</button></div>'
    +'<div class="tw"><table><thead><tr><th>Nama</th><th>Peran</th><th>Email</th><th>WhatsApp</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="stb"></tbody></table></div>';
   $('sq').oninput=stafRows;$('sp').onchange=stafRows;$('sadd').onclick=function(){stafForm(null)};stafRows();
   if(!window.__sinkP){window.__sinkP=1;sinkSemuaPengajar().then(function(n){if(n)toast(n+' pengajar disinkronkan ke website')})}
@@ -780,7 +780,7 @@ function stafForm(id){
   open_('<h3 style="margin-bottom:12px;color:var(--ht)">'+(id?'Edit akun':'Daftarkan akun baru')+'</h3><form id="sf2" class="g2">'
    +'<div class="f"><label>Foto</label><div style="display:flex;gap:12px;align-items:center;margin-top:6px"><img id="sfp" class="ph" alt="" style="width:68px;height:68px;margin:0'+(x.foto?'':';display:none')+'" src="'+esc(x.foto||'')+'"><input type="file" accept="image/*" onchange="window.foto(this,\'sfh\',\'sfp\',400,.8)"><input type="hidden" name="foto" id="sfh" value="'+esc(x.foto||'')+'"></div></div>'
    +'<label class="f">Nama lengkap<input name="nama" required value="'+esc(x.nama||'')+'"></label>'
-   +'<label>Peran<select name="peran"><option'+(x.peran==='Kepala'?' selected':'')+'>Kepala</option><option'+(x.peran==='Pengajar'?' selected':'')+'>Pengajar</option></select></label>'
+   +'<label>Peran<select name="peran"><option'+((['Direktur','Kepala'].indexOf(x.peran)>=0)?' selected':'')+'>Direktur</option><option'+(x.peran==='Pengajar'?' selected':'')+'>Pengajar</option></select></label>'
    +'<label>Jabatan / bidang (opsional)<input name="jabatan" value="'+esc(x.jabatan||'')+'" placeholder="mis. Pengajar Tahfidz"></label>'
    +'<label>Email (untuk login)<input name="email" type="email" required value="'+esc(x.email||'')+'"'+(id?' readonly style="background:#f0f3f1"':'')+'></label>'
    +'<label>WhatsApp<input name="hp" type="tel" value="'+esc(x.hp||'')+'" placeholder="0812..."></label>'
@@ -790,7 +790,7 @@ function stafForm(id){
     e.preventDefault();var d={};new FormData(e.target).forEach(function(v,k){d[k]=v.trim()});
     var pw=d.pw;delete d.pw;d.email=d.email.toLowerCase();$('se').textContent='';$('ssv').disabled=true;
     try{
-      if(id){await DB.set('staf',id,{nama:d.nama,peran:d.peran,jabatan:d.jabatan,hp:d.hp,foto:d.foto||''});Object.assign(x,d);if(d.peran==='Kepala')await sinkKepala(d);await sinkPengajar(x);closeM();stafTab();toast('Akun diperbarui');return}
+      if(id){await DB.set('staf',id,{nama:d.nama,peran:d.peran,jabatan:d.jabatan,hp:d.hp,foto:d.foto||''});Object.assign(x,d);if((['Direktur','Kepala'].indexOf(d.peran)>=0))await sinkDirektur(d);await sinkPengajar(x);closeM();stafTab();toast('Akun diperbarui');return}
       if(D.staf.some(function(s){return(s.email||'')===d.email}))throw{message:'Email ini sudah ada di daftar.'};
       var uid;
       if(DB.cloud){
@@ -800,7 +800,7 @@ function stafForm(id){
       }
       var rec=Object.assign({status:'Aktif',tgl:today()},d);
       if(uid){await DB.set('staf',uid,rec);rec.id=uid}else{rec.id=await DB.add('staf',rec)}
-      D.staf.push(rec);if(rec.peran==='Kepala')await sinkKepala(rec);await sinkPengajar(rec);stafTab();stafKredensial(rec,DB.cloud?pw:null);
+      D.staf.push(rec);if((['Direktur','Kepala'].indexOf(rec.peran)>=0))await sinkDirektur(rec);await sinkPengajar(rec);stafTab();stafKredensial(rec,DB.cloud?pw:null);
     }catch(er){$('se').textContent=stafErr(er);$('ssv').disabled=false}
   };
 }
@@ -927,8 +927,8 @@ $('lf').onsubmit=async function(e){e.preventDefault();$('le').textContent='';
   }catch(er){$('le').textContent=DB.err(er)}};
 async function start(){
   try{await loadLogo()}catch(e){}
-  resolveWho();applyWho();if(ROLE==='kepala')guardKepala();
-  var wl=document.createElement('div');wl.id='wel';wl.innerHTML='<div class="a" style="font-size:2.4rem;line-height:1.5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><div class="l"></div><div class="t">Selamat '+salamWaktu()+',</div><div class="n">'+esc(WHO.nama)+'</div><div class="r">'+(ROLE==='kepala'?'👑 KEPALA':'🛡 ADMIN')+' · DAARUL FIKR</div>';document.body.appendChild(wl);setTimeout(function(){wl.remove()},2800);
+  resolveWho();applyWho();if(ROLE==='kepala')guardDirektur();
+  var wl=document.createElement('div');wl.id='wel';wl.innerHTML='<div class="a" style="font-size:2.4rem;line-height:1.5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><div class="l"></div><div class="t">Selamat '+salamWaktu()+',</div><div class="n">'+esc(WHO.nama)+'</div><div class="r">'+(ROLE==='kepala'?'👑 DIREKTUR':'🛡 ADMIN')+' · DAARUL FIKR</div>';document.body.appendChild(wl);setTimeout(function(){wl.remove()},2800);
   $('login').classList.add('hide');$('app').classList.remove('hide');$('lm').textContent=DB.cloud?'Online · '+((window.FIREBASE_CONFIG||{}).projectId||''):'Mode Demo';if(!DB.cloud)$('demo').classList.remove('hide');
   var kp=ROLE==='kepala';
   var NG=kp?[['Pantau',['dash','pengumuman','santri','absensi','hafalan','bayar','laporan']],['Lembaga',['staf','struktur']]]:[['Operasional',['dash','pengumuman','santri','ortu','staf','absensi','hafalan','bayar','laporan']],['Isi Website',['pengaturan','program','jadwal','agenda','statistik','testimoni','keunggulan','alur','faq','sorotan','pengajar','struktur','galeri']]];
@@ -937,7 +937,7 @@ async function start(){
   $('nav').onclick=function(e){var b=e.target.closest('button');if(b&&b.dataset.c)go(b.dataset.c)};$('mb').onclick=function(){$('side').classList.toggle('open')};
   $('clk').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});go('dash');partikel();fxInit();tkrRender();setInterval(tkrRender,60000);cekBaru();setInterval(cekBaru,90000);document.addEventListener('visibilitychange',cekBaru);
 }
-/* ===== v2: peran Kepala, nama akun, latar interaktif, menu pengumuman ===== */
+/* ===== v2: peran Direktur, nama akun, latar interaktif, menu pengumuman ===== */
 var ME=null;
 var KN=['dash','pengumuman','santri','absensi','hafalan','bayar','laporan','staf','struktur'];
 var KT={Umum:'#2e9e68',Penting:'#d9534f',Kegiatan:'#4a90d9',Libur:'#e6b422'};
@@ -947,27 +947,27 @@ async function peranAkun(){
   try{
     var u=firebase.auth().currentUser;
     if(u){var d=await firebase.firestore().collection('staf').doc(u.uid).get();
-      if(d.exists&&d.data().peran==='Kepala'&&d.data().status!=='Nonaktif'){ME=Object.assign({id:u.uid},d.data());return'kepala'}}
+      if(d.exists&&(['Direktur','Kepala'].indexOf(d.data().peran)>=0)&&d.data().status!=='Nonaktif'){ME=Object.assign({id:u.uid},d.data());return'kepala'}}
   }catch(e){}
   return r;
 }
 function resolveWho(){
   var u=null;try{u=firebase.auth().currentUser}catch(e){}
-  if(ROLE==='kepala'){var m=ME||{};WHO={nama:m.nama||(u&&u.displayName)||SET.kepala_nama||'Kepala',jab:m.jabatan||SET.kepala_jabatan||'Kepala Rumah Quran dan Literasi Daarul Fikr'}}
+  if(ROLE==='kepala'){var m=ME||{};WHO={nama:m.nama||(u&&u.displayName)||SET.kepala_nama||'Direktur',jab:m.jabatan||SET.kepala_jabatan||'Direktur Rumah Quran dan Literasi Daarul Fikr'}}
   else WHO={nama:SET.admin_nama||(u&&u.displayName)||'Administrator',jab:SET.admin_jabatan||'Administrator Sistem'};
 }
 function applyWho(){
   var k=ROLE==='kepala';
   document.body.classList.toggle('kepala',k);
   $('meN').textContent=WHO.nama;$('meA').textContent=String(WHO.nama).trim().charAt(0).toUpperCase()||'A';
-  $('meR').textContent=k?'Kepala · pantau & pengumuman':'Admin · akses penuh';$('meJ').textContent=WHO.jab||'';
-  $('bsub').textContent=k?'Panel Kepala':'Panel Admin';
-  document.title=(k?'Kepala':'Admin')+' - Daarul Fikr';
+  $('meR').textContent=k?'Direktur · pantau & pengumuman':'Admin · akses penuh';$('meJ').textContent=WHO.jab||'';
+  $('bsub').textContent=k?'Panel Direktur':'Panel Admin';
+  document.title=(k?'Direktur':'Admin')+' - Daarul Fikr';
 }
-function guardKepala(){
+function guardDirektur(){
   ['set','add','del'].forEach(function(m){
     var o=DB[m];if(typeof o!=='function'||o._g)return;
-    var g=function(c){if(ROLE==='kepala'&&c!=='pengumuman')return Promise.reject(new Error('Akun Kepala hanya dapat melihat data dan mengelola pengumuman.'));return o.apply(DB,arguments)};
+    var g=function(c){if(ROLE==='kepala'&&c!=='pengumuman')return Promise.reject(new Error('Akun Direktur hanya dapat melihat data dan mengelola pengumuman.'));return o.apply(DB,arguments)};
     g._g=1;try{DB[m]=g}catch(e){}
   });
 }
@@ -985,9 +985,9 @@ async function sinkSemuaPengajar(){
   for(var i=0;i<L.length;i++)await sinkPengajar(L[i]);
   return L.length;
 }
-async function sinkKepala(d){
+async function sinkDirektur(d){
   try{
-    var v={kepala_nama:d.nama,kepala_jabatan:d.jabatan||'Kepala Rumah Quran dan Literasi Daarul Fikr'};
+    var v={kepala_nama:d.nama,kepala_jabatan:d.jabatan||'Direktur Rumah Quran dan Literasi Daarul Fikr'};
     await DB.set('pengaturan','situs',v);SET=Object.assign(SET||{},v);
     var o=(D.pengaturan||[]).filter(function(i){return i.id==='situs'})[0];if(o)Object.assign(o,v);
   }catch(e){}
@@ -1056,17 +1056,17 @@ document.addEventListener('pointermove',function(e){
   t.style.transform='perspective(700px) rotateY('+(x*7)+'deg) rotateX('+(-y*7)+'deg) translateY(-3px)';
 });
 document.addEventListener('pointerout',function(e){var t=e.target.closest&&e.target.closest('.st,.pgc');if(t)t.style.transform=''});
-/* pilihan Admin / Kepala di halaman login (tema pratinjau) */
+/* pilihan Admin / Direktur di halaman login (tema pratinjau) */
 document.querySelectorAll('.chips button').forEach(function(b){b.onclick=function(){
   document.querySelectorAll('.chips button').forEach(function(x){x.classList.toggle('on',x===b)});
   var k=b.dataset.r==='kepala';document.body.classList.toggle('kepala',k);
   $('lh').textContent=k?'Pantau perkembangan santri, laporan, dan kelola pengumuman.':'Kelola seluruh data santri dan isi website.';
 }});
-$('mode').textContent=DB.cloud?'':'Mode demo (belum terhubung Firebase). Login awal: admin / admin123 · Kepala: kepala / kepala123';
+$('mode').textContent=DB.cloud?'':'Mode demo (belum terhubung Firebase). Login awal: admin / admin123 · Direktur: kepala / kepala123';
 loadLogo();
 DB.onAuth(async function(ok){
   if(!ok||!$('app').classList.contains('hide'))return;
-  try{var r=await peranAkun();if(r==='admin'||r==='kepala'){ROLE=r;start()}else{await DB.logout();$('le').innerHTML='Akun ini bukan admin atau kepala. <a href="ortu.html" style="color:var(--h);font-weight:700">Buka Portal Orang Tua →</a>'}}
+  try{var r=await peranAkun();if(r==='admin'||r==='kepala'){ROLE=r;start()}else{await DB.logout();$('le').innerHTML='Akun ini bukan admin atau direktur. <a href="ortu.html" style="color:var(--h);font-weight:700">Buka Portal Orang Tua →</a>'}}
   catch(e){$('le').textContent=DB.err(e)}
 });
 </script>
