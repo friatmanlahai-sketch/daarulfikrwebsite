@@ -7,11 +7,11 @@ service cloud.firestore {
     function admin() {
       return signed() && request.auth.token.email in ['rqldaarulfikrtolondadu@gmail.com'];
     }
-    // Kepala = akun staf berperan Kepala yang aktif. Boleh MELIHAT data dan mengelola pengumuman, tidak boleh mengubah data lain.
+    // Direktur = akun staf berperan Direktur yang aktif. Boleh MELIHAT data dan mengelola pengumuman, tidak boleh mengubah data lain.
     function kepala() {
       return signed()
         && exists(/databases/$(database)/documents/staf/$(request.auth.uid))
-        && get(/databases/$(database)/documents/staf/$(request.auth.uid)).data.get('peran', '') == 'Kepala'
+        && get(/databases/$(database)/documents/staf/$(request.auth.uid)).data.get('peran', '') in ['Direktur','Kepala']
         && get(/databases/$(database)/documents/staf/$(request.auth.uid)).data.get('status', 'Aktif') != 'Nonaktif';
     }
     // Pengajar = akun staf berperan Pengajar yang aktif. Dipakai portal-pengajar.html untuk mengontrol santri.
@@ -89,7 +89,7 @@ service cloud.firestore {
         && request.resource.data.foto is string && request.resource.data.foto.size() < 200000;
     }
     match /struktur/{id} { allow read: if true; }
-    // Akun staf: tiap staf hanya dapat membaca dokumennya sendiri (dipakai untuk mengenali peran Kepala).
+    // Akun staf: tiap staf hanya dapat membaca dokumennya sendiri (dipakai untuk mengenali peran Direktur).
     match /staf/{uid} {
       allow get: if signed() && request.auth.uid == uid;
       // Pengajar boleh mengganti foto profilnya sendiri.
@@ -107,7 +107,7 @@ service cloud.firestore {
     match /testimoni/{id} { allow read: if true; }
 
     // ---- Admin: semuanya ----
-    // Kepala boleh membaca semua kecuali koleksi 'admin' (supaya tidak dikira admin oleh panel).
+    // Direktur boleh membaca semua kecuali koleksi 'admin' (supaya tidak dikira admin oleh panel).
     match /{col}/{id} {
       allow read: if admin() || (kepala() && col != 'admin');
       allow write: if admin();
