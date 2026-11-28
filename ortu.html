@@ -149,7 +149,7 @@ body.guest .card{box-shadow:0 30px 70px rgba(0,0,0,.4);border-top:5px solid var(
     <div class="err" id="terr"></div><button class="btn">Ajukan penautan</button></form>
     <h3 style="margin-top:22px;font-size:1.15rem">Permintaan saya</h3><div id="tlist"></div></div></div>
   <div id="v-profil" hidden><div class="card"><h2>Profil</h2>
-    <form id="fp" class="grid2"><label class="f">Email<input id="p-email" disabled></label><label>Nama lengkap<input id="p-nama" required></label><label>No. WhatsApp<input id="p-hp" type="tel" required></label>
+    <form id="fp" class="grid2"><label class="f">Email<input id="p-email" disabled></label><label>Nama lengkap<input id="p-nama" required></label><label>No. WhatsApp<input id="p-hp" type="tel" required></label><label>Hubungan dengan anak<select id="p-hubungan"><option value="">Pilih</option><option>Ayah</option><option>Ibu</option><option>Wali</option></select></label><label>Jenis kelamin<select id="p-jk"><option value="">Pilih</option><option>Laki-laki</option><option>Perempuan</option></select></label><label>Tempat lahir<input id="p-tempat" maxlength="90"></label><label>Tanggal lahir<input id="p-lahir" type="date"></label><label>Pendidikan terakhir<input id="p-pendidikan" maxlength="90"></label><label>Pekerjaan<input id="p-pekerjaan" maxlength="90"></label><label class="f">Alamat<textarea id="p-alamat" rows="2" maxlength="290"></textarea></label><label class="f">Foto profil<input id="p-foto" type="file" accept="image/*"><img id="p-fp" alt="Foto profil" hidden style="width:84px;height:84px;border-radius:50%;object-fit:cover;margin-top:8px"></label>
     <div class="f err" id="perr"></div><div class="f" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn">Simpan</button><button type="button" class="btn o" id="rst">Kirim tautan ganti password ke email</button></div></form></div></div>
 </section>
 </main>
@@ -195,9 +195,10 @@ async function boot(){
   $('auth').hidden=true;$('app').hidden=false;document.body.classList.remove('guest');$('out').hidden=false;$('who').hidden=false;
   ME=await DB.profil()||{};$('who').textContent=ME.nama||ME.email||'Orang tua';
   var jam=new Date().getHours();$('wel-t').textContent='Selamat '+(jam<11?'pagi':jam<15?'siang':jam<18?'sore':'malam')+(ME.nama?', '+String(ME.nama).split(' ')[0]:'');
-  $('p-email').value=ME.email||'';$('p-nama').value=ME.nama||'';$('p-hp').value=ME.hp||'';$('d-ortu').value=ME.nama||'';$('d-hp').value=ME.hp||'';
+  $('p-email').value=ME.email||'';$('p-nama').value=ME.nama||'';$('p-hp').value=ME.hp||'';BIO.forEach(function(k){$('p-'+k).value=ME[k]||''});tampilFoto();$('d-ortu').value=ME.nama||'';$('d-hp').value=ME.hp||'';
   try{var st=(await DB.list('pengaturan')).filter(function(x){return x.id==='situs'})[0];if(st){if(st.wa)S.wa=st.wa;if(st.logo)document.querySelectorAll('img[data-logo]').forEach(function(i){i.src=st.logo})}}catch(e){}
   try{var P=(await DB.list('program')).filter(function(x){return x.aktif!=='Tidak'}).sort(function(a,b){return(+a.urut||999)-(+b.urut||999)}).map(function(x){return x.judul});if(P.length)PROG=P}catch(e){}
+  try{var PL=(await DB.list('pengaturan')).filter(function(x){return x.id==='pilihan'})[0];if(PL&&PL.program&&PL.program.length)PROG=PL.program}catch(e){}
   try{var st2=(await DB.list('pengaturan')).filter(function(x){return x.id==='situs'})[0]||{};KEP.nama=st2.kepala_nama||'';KEP.jab=st2.kepala_jabatan||KEP.jab;S.email=st2.email||S.email;S.jam=st2.jam||S.jam}catch(e){}
   $('d-prog').innerHTML='<option value="">Pilih program</option>'+PROG.map(function(p){return'<option>'+esc(p)+'</option>'}).join('');
   await muat();
@@ -276,8 +277,10 @@ async function tlist(){try{var L=(await DB.query('tautan','uid',DB.uid())).sort(
   $('tlist').innerHTML=L.length?tb(['Nomor','Tgl lahir','Status'],L.map(function(x){return[esc(x.no),fmt(x.lahir),'<span class="b '+(x.status==='Disetujui'?'Diterima':x.status==='Ditolak'?'Ditolak':'Menunggu')+'">'+esc(x.status)+'</span>']})):'<p class="sub">Belum ada permintaan.</p>'}catch(e){}}
 $('ft').onsubmit=async function(e){e.preventDefault();$('terr').textContent='';
   try{await DB.ajukanTautan($('t-no').value,$('t-lahir').value);e.target.reset();await tlist();toast('Permintaan terkirim. Menunggu persetujuan pengurus.')}catch(er){$('terr').textContent=DB.err(er)}};
+var BIO=['hubungan','jk','tempat','lahir','pendidikan','pekerjaan','alamat'];
+function tampilFoto(){var i=$('p-fp');i.hidden=!ME.foto;if(ME.foto)i.src=ME.foto}
 $('fp').onsubmit=async function(e){e.preventDefault();$('perr').className='f err';$('perr').textContent='';
-  try{await DB.simpanProfil({nama:$('p-nama').value.trim(),hp:$('p-hp').value.trim()});ME.nama=$('p-nama').value.trim();ME.hp=$('p-hp').value.trim();$('who').textContent=ME.nama;toast('Profil disimpan')}catch(er){$('perr').textContent=DB.err(er)}};
+  try{var d={nama:$('p-nama').value.trim(),hp:$('p-hp').value.trim()};BIO.forEach(function(k){d[k]=$('p-'+k).value.trim()});var fl=$('p-foto').files[0];if(fl)d.foto=await DB.fotoFile(fl,400,.8);await DB.simpanProfil(d);Object.assign(ME,d);$('p-foto').value='';tampilFoto();$('who').textContent=ME.nama;toast('Profil disimpan')}catch(er){$('perr').textContent=DB.err(er)}};
 $('rst').onclick=async function(){try{await DB.reset(ME.email);toast('Tautan dikirim ke '+ME.email)}catch(er){$('perr').textContent=DB.err(er)}};
 
 /* ---------- cetak ---------- */
