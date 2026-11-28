@@ -110,15 +110,20 @@ $('cs').addEventListener('submit', async function (e) {
 })();
 (async function () {
   var by = function (a, b) { return (+a.urut || 999) - (+b.urut || 999); }, el = function (t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+  var PIL = [];
+  if (document.getElementById('pgsel')) {
+    try { var pl = (await DB.list('pengaturan')).filter(function (x) { return x.id === 'pilihan'; })[0]; PIL = (pl && pl.program) || []; } catch (e) {}
+    if (PIL.length) { var ps = $('pgsel'); ps.length = 1; PIL.forEach(function (n) { var o = document.createElement('option'); o.textContent = n; ps.appendChild(o); }); document.dispatchEvent(new Event('programsiap')); }
+  }
   try {
     var P = (await DBL('program')).filter(function (x) { return x.aktif !== 'Tidak'; }).sort(by);
     if (P.length) {
-      var ul = $('progl'), sel = $('pgsel'); ul.textContent = ''; sel.length = 1;
+      var ul = $('progl'), sel = PIL.length ? NIL : $('pgsel'); ul.textContent = ''; sel.length = 1;
       P.forEach(function (x) {
         var li = document.createElement('li'); li.append(el('span', 'i', x.ikon || '📖'), el('h3', '', x.judul), el('p', '', x.deskripsi)); ul.appendChild(li);
         var o = document.createElement('option'); o.textContent = x.judul; sel.appendChild(o);
       });
-      document.dispatchEvent(new Event('programsiap'));
+      if (!PIL.length) document.dispatchEvent(new Event('programsiap'));
     }
   } catch (e) {}
   try {
