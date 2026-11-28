@@ -92,9 +92,49 @@ service cloud.firestore {
     // Akun staf: tiap staf hanya dapat membaca dokumennya sendiri (dipakai untuk mengenali peran Direktur).
     match /staf/{uid} {
       allow get: if signed() && request.auth.uid == uid;
-      // Pengajar boleh mengganti foto profilnya sendiri.
-      allow update: if signed() && request.auth.uid == uid && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['foto'])
-        && request.resource.data.foto is string && request.resource.data.foto.size() < 200000;
+      // Pengajar & Direktur boleh mengubah foto dan biodatanya sendiri (bukan nama, peran, atau status).
+      allow update: if signed() && request.auth.uid == uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['foto', 'hp', 'jk', 'tempat', 'lahir', 'pendidikan', 'alamat', 'nik', 'kk', 'nikah', 'pasangan', 'anak', 'desa', 'kecamatan', 'kabupaten', 'provinsi', 'kodepos', 'kampus', 'jurusan', 'npwp', 'mulai', 'keahlian', 'pelatihan', 'riwayatpend', 'prestasi', 'ijazah', 'sertifikat', 'darurat'])
+        && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['foto'])
+            || (request.resource.data.foto is string && request.resource.data.foto.size() < 200000))
+        && request.resource.data.get('hp', '').size() < 100
+        && request.resource.data.get('jk', '').size() < 100
+        && request.resource.data.get('tempat', '').size() < 100
+        && request.resource.data.get('lahir', '').size() < 100
+        && request.resource.data.get('pendidikan', '').size() < 100
+        && request.resource.data.get('alamat', '').size() < 300
+        && request.resource.data.get('nik', '').size() < 100
+        && request.resource.data.get('kk', '').size() < 100
+        && request.resource.data.get('nikah', '').size() < 100
+        && request.resource.data.get('pasangan', '').size() < 100
+        && request.resource.data.get('anak', '').size() < 100
+        && request.resource.data.get('desa', '').size() < 100
+        && request.resource.data.get('kecamatan', '').size() < 100
+        && request.resource.data.get('kabupaten', '').size() < 100
+        && request.resource.data.get('provinsi', '').size() < 100
+        && request.resource.data.get('kodepos', '').size() < 100
+        && request.resource.data.get('kampus', '').size() < 100
+        && request.resource.data.get('jurusan', '').size() < 100
+        && request.resource.data.get('npwp', '').size() < 100
+        && request.resource.data.get('mulai', '').size() < 100
+        && request.resource.data.get('sertifikat', '').size() < 4000
+        && request.resource.data.get('keahlian', '').size() < 3000
+        && request.resource.data.get('pelatihan', '').size() < 10000
+        && request.resource.data.get('riwayatpend', '').size() < 4000
+        && request.resource.data.get('prestasi', '').size() < 9000
+        && request.resource.data.get('ijazah', '').size() < 4000
+        && request.resource.data.get('darurat', '').size() < 100;
+    }
+    // Berkas unggahan (sertifikat, ijazah, prestasi): satu dokumen per berkas. Hanya pemiliknya yang boleh membaca,
+    // menambah, dan menghapus; admin dan Direktur tetap bisa membaca lewat aturan umum di bawah.
+    match /berkas/{id} {
+      allow read: if signed() && resource.data.pemilik == request.auth.uid;
+      allow create: if signed() && request.resource.data.pemilik == request.auth.uid
+        && request.resource.data.keys().hasOnly(['pemilik', 'jenis', 'nama', 'tipe', 'data', 'tgl'])
+        && request.resource.data.jenis in ['sertifikat', 'pelatihan', 'prestasi', 'ijazah']
+        && request.resource.data.data is string && request.resource.data.data.size() < 800000
+        && request.resource.data.get('nama', '').size() < 200 && request.resource.data.get('tipe', '').size() < 100;
+      allow delete: if signed() && resource.data.pemilik == request.auth.uid;
     }
     match /galeri/{id} { allow read: if true; }
     match /pengaturan/{id} { allow read: if true; }
